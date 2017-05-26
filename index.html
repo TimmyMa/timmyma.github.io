@@ -327,24 +327,24 @@
       
         
           
-            <h1 id="Kotlin-Bootstrap"><a href="#Kotlin-Bootstrap" class="headerlink" title="Kotlin Bootstrap"></a>Kotlin Bootstrap</h1><blockquote>
+            <blockquote>
 <p>May 17, 2017, at the Google I/O keynote, the Android team announced first-class support for Kotlin.</p>
 </blockquote>
 <p>Android团队已经宣布为 <a href="http://kotlinlang.org/" title="Kotlin 官网" target="_blank" rel="external">Kotlin</a> 提供 <strong>“first-class support”</strong><br>Kotlin 官网上对应 Android 的 <a href="https://kotlinlang.org/docs/tutorials/kotlin-android.html" target="_blank" rel="external">tutorial</a><br>Android Developers 官网上对应 Kotlin 的 <a href="https://developer.android.com/kotlin/index.html" target="_blank" rel="external">start up</a>  </p>
 <p>现在就橹一遍 <a href="http://try.kotlinlang.org/koans" target="_blank" rel="external">“hands-on” learning</a> 吧<br>希望不会像 Swift 那样</p>
-<h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello, world"></a>Hello, world</h2><p><code>fun</code> 关键字后面跟上 <code>函数名</code><br>括号里面是 <code>参数名: 参数类型</code><br>括号后面跟上 <code>返回值类型</code> （void 就不用写）<br><code>返回值类型</code> 后面可以跟上 <code>?</code> 代表返回值可以为空</p>
+<h1 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello, world"></a>Hello, world</h1><p><code>fun</code> 关键字后面跟上 <code>函数名</code><br>括号里面是 <code>参数名: 参数类型</code><br>括号后面跟上 <code>返回值类型</code> （void 就不用写）<br><code>返回值类型</code> 后面可以跟上 <code>?</code> 代表返回值可以为空</p>
 <pre><code>fun main(args: Array&lt;String&gt;) {  
     println(&quot;Hello, world!&quot;)  
 }
 </code></pre><p><code>main</code> 函数、命令行参数什么的就略过了吧</p>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><h3 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h3><p><code>if</code> 在 Kotlin 中是表达式，具有返回值</p>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><h2 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h2><p><code>if</code> 在 Kotlin 中是表达式，具有返回值</p>
 <pre><code>fun main(args: Array&lt;String&gt;) {
     println(max(args[0].toInt(), args[1].toInt()))
 }
 
 fun max(a: Int, b: Int) = if (a &gt; b) a else b
 </code></pre><p>没错，函数的返回值也可以用 <code>=</code> 简写</p>
-<h3 id="Null-检查"><a href="#Null-检查" class="headerlink" title="Null 检查"></a>Null 检查</h3><blockquote>
+<h2 id="Null-检查"><a href="#Null-检查" class="headerlink" title="Null 检查"></a>Null 检查</h2><blockquote>
 <p>A reference must be explicitly marked as nullable to be able hold a null.</p>
 </blockquote>
 <p>一个引用必须被明确的标记为 <code>nullable</code> 以便能被赋值为 <code>null</code>  </p>
@@ -377,7 +377,7 @@ fun main(args: Array&lt;String&gt;) {
     }
 }
 </code></pre><p>听说能减少一半以上的 <code>NullPointerException</code> ？  </p>
-<h3 id="is-Check-和-自动-cast"><a href="#is-Check-和-自动-cast" class="headerlink" title="is Check 和 自动 cast"></a>is Check 和 自动 cast</h3><p>使用 <code>is</code> 来检查某个引用是否为某种类型的实例等等<br>如果我们已经 check 过了某种 <code>immutable</code> 的类型，在之后的使用就无需将其进行类型转换  </p>
+<h2 id="is-Check-和-自动-cast"><a href="#is-Check-和-自动-cast" class="headerlink" title="is Check 和 自动 cast"></a>is Check 和 自动 cast</h2><p>使用 <code>is</code> 来检查某个引用是否为某种类型的实例等等<br>如果我们已经 check 过了某种 <code>immutable</code> 的类型，在之后的使用就无需将其进行类型转换  </p>
 <pre><code>fun main(args: Array&lt;String&gt;) {
     println(getStringLength(&quot;aaa&quot;))
     println(getStringLength(1))
@@ -388,13 +388,13 @@ fun getStringLength(obj: Any): Int? {
         return obj.length // 无需 cast 成 String
     return null
 }
-</code></pre><h3 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h3><p><code>while</code> 和 <code>do..while</code> 同 java</p>
+</code></pre><h2 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h2><p><code>while</code> 和 <code>do..while</code> 同 java</p>
 <pre><code>fun main(args: Array&lt;String&gt;) {
     var i = 0
     while (i &lt; args.size)
         println(args[i++])
 }
-</code></pre><h3 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h3><p>给一个 <code>iterable</code> 的对象就能循环</p>
+</code></pre><h2 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h2><p>给一个 <code>iterable</code> 的对象就能循环</p>
 <pre><code>fun main(args: Array&lt;String&gt;) {
     for (arg in args)
         println(arg)
@@ -404,7 +404,7 @@ fun getStringLength(obj: Any): Int? {
     for (i in args.indices)
         println(args[i])
 }
-</code></pre><h3 id="range-和-in"><a href="#range-和-in" class="headerlink" title="range 和 in"></a>range 和 in</h3><p><code>&lt;num1&gt;..&lt;num2&gt;</code> 返回的是一个 <code>iterable</code> 对象<br><code>in</code> 操作符可以用来检查值是否在范围中，也可以在 <code>for</code> 循环里面 loop  </p>
+</code></pre><h2 id="range-和-in"><a href="#range-和-in" class="headerlink" title="range 和 in"></a>range 和 in</h2><p><code>&lt;num1&gt;..&lt;num2&gt;</code> 返回的是一个 <code>iterable</code> 对象<br><code>in</code> 操作符可以用来检查值是否在范围中，也可以在 <code>for</code> 循环里面 loop  </p>
 <pre><code>fun main(args: Array&lt;String&gt;) {
     val x = args[0].toInt()
     // 检查数字是否在范围内
@@ -435,7 +435,7 @@ fun getStringLength(obj: Any): Int? {
     else
         println(&quot;No: array doesn&apos;t contains ddd&quot;)
 }
-</code></pre><h3 id="when"><a href="#when" class="headerlink" title="when"></a>when</h3><p><code>when</code> 取代 java 中的 <code>switch..case</code>，很白话  </p>
+</code></pre><h2 id="when"><a href="#when" class="headerlink" title="when"></a>when</h2><p><code>when</code> 取代 java 中的 <code>switch..case</code>，很白话  </p>
 <pre><code>fun main(args: Array&lt;String&gt;) {
     cases(&quot;Hello&quot;)
     cases(1)
@@ -457,7 +457,7 @@ fun cases(obj: Any) {
 
 class MyClass() {
 }
-</code></pre><h2 id="Destructuring-声明-和-Data-类"><a href="#Destructuring-声明-和-Data-类" class="headerlink" title="Destructuring 声明 和 Data 类"></a>Destructuring 声明 和 Data 类</h2><h3 id="Destructuring-（解构？）声明"><a href="#Destructuring-（解构？）声明" class="headerlink" title="Destructuring （解构？）声明"></a>Destructuring （解构？）声明</h3><p><code>val (name, age) = person</code> 这样的声明可以将对象 destructure（对象并不会被销毁）成几个变量<br>一句 destructuring declaration 会被编译成一下代码  </p>
+</code></pre><h1 id="Destructuring-声明-和-Data-类"><a href="#Destructuring-声明-和-Data-类" class="headerlink" title="Destructuring 声明 和 Data 类"></a>Destructuring 声明 和 Data 类</h1><h2 id="Destructuring-（解构？）声明"><a href="#Destructuring-（解构？）声明" class="headerlink" title="Destructuring （解构？）声明"></a>Destructuring （解构？）声明</h2><p><code>val (name, age) = person</code> 这样的声明可以将对象 destructure（对象并不会被销毁）成几个变量<br>一句 destructuring declaration 会被编译成一下代码  </p>
 <pre><code>val name = person.component1()
 val age = person.component2()
 </code></pre><p>前提是你需要在你的类中定义这样的方法（如果声明成 <code>data</code> 类就会自动实现 <code>componentN</code> 的方法）</p>
@@ -479,14 +479,14 @@ class Pair&lt;K, V&gt;(val first: K, val second: V) {
         return second
     }
 }
-</code></pre><h3 id="data-类"><a href="#data-类" class="headerlink" title="data 类"></a>data 类</h3><p>将类声明为 <code>data</code> 类，可以由编译器自动根据主构造函数参数自动生成：  </p>
+</code></pre><h2 id="data-类"><a href="#data-类" class="headerlink" title="data 类"></a>data 类</h2><p>将类声明为 <code>data</code> 类，可以由编译器自动根据主构造函数参数自动生成：  </p>
 <ul>
 <li>equals() / hashCode()</li>
 <li>toString() 以 “User(name=John, age=42)” 这样的格式</li>
 <li>componentN() 按照声明的顺序生成对应成员的 componentN()</li>
 <li>copy() <strong>深度拷贝？还没试</strong></li>
 </ul>
-<h3 id="遍历-map"><a href="#遍历-map" class="headerlink" title="遍历 map"></a>遍历 map</h3><pre><code>fun main(args: Array&lt;String&gt;) {
+<h2 id="遍历-map"><a href="#遍历-map" class="headerlink" title="遍历 map"></a>遍历 map</h2><pre><code>fun main(args: Array&lt;String&gt;) {
     val map = hashMapOf&lt;String, Int&gt;()
     map.put(&quot;one&quot;, 1)
     map.put(&quot;two&quot;, 2)
