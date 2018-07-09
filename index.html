@@ -328,49 +328,361 @@
         
           
             <p>以声明的方式将 observable 数据绑定到 UI 元素<br>参考 <a href="https://developer.android.com/topic/libraries/data-binding/" target="_blank" rel="external">https://developer.android.com/topic/libraries/data-binding/</a></p>
-<h1 id="Get-started"><a href="#Get-started" class="headerlink" title="Get started"></a>Get started</h1><p>添加 dataBinding 元素到项目中 app moudule 的 build.gradle 文件中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ...</div><div class="line">    dataBinding &#123;</div><div class="line">        enabled = true</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h1 id="Layouts-amp-binding-expressions"><a href="#Layouts-amp-binding-expressions" class="headerlink" title="Layouts &amp; binding expressions"></a>Layouts &amp; binding expressions</h1><p>使用 Databinding 的 layout 文件与正常的略微有些不同，它使用了 <code>layout</code> 作为 root tag ，里面包裹着 <code>data</code> 元素和真正的 <code>view</code> 元素：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">   &lt;data&gt;</div><div class="line">       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;</div><div class="line">   &lt;/data&gt;</div><div class="line">   &lt;LinearLayout</div><div class="line">       android:orientation=&quot;vertical&quot;</div><div class="line">       android:layout_width=&quot;match_parent&quot;</div><div class="line">       android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line">       &lt;TextView android:layout_width=&quot;wrap_content&quot;</div><div class="line">           android:layout_height=&quot;wrap_content&quot;</div><div class="line">           android:text=&quot;@&#123;user.firstName&#125;&quot;/&gt;</div><div class="line">       &lt;TextView android:layout_width=&quot;wrap_content&quot;</div><div class="line">           android:layout_height=&quot;wrap_content&quot;</div><div class="line">           android:text=&quot;@&#123;user.lastName&#125;&quot;/&gt;</div><div class="line">   &lt;/LinearLayout&gt;</div><div class="line">&lt;/layout&gt;</div></pre></td></tr></table></figure></p>
-<p>其中data 标签包裹着的变量 “<code>user</code>“ 即为当前 layout 所使用的属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot; /&gt;</div></pre></td></tr></table></figure></p>
-<p>在使用该属性的表达式中，使用 “<code>@{}</code>“ 的语法来表示引用，这里， <code>TextView</code> 的文字被设置为 <code>user</code> 的 <code>firstName</code> 属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;TextView android:layout_width=&quot;wrap_content&quot;</div><div class="line">          android:layout_height=&quot;wrap_content&quot;</div><div class="line">          android:text=&quot;@&#123;user.firstName&#125;&quot; /&gt;</div></pre></td></tr></table></figure></p>
-<blockquote>
+<h1 id="Get-started"><a href="#Get-started" class="headerlink" title="Get started"></a>Get started</h1><p>添加 dataBinding 元素到项目中 app moudule 的 build.gradle 文件中：  </p>
+<pre><code>android {
+    ...
+    dataBinding {
+        enabled = true
+    }
+}
+</code></pre><h1 id="Layouts-amp-binding-expressions"><a href="#Layouts-amp-binding-expressions" class="headerlink" title="Layouts &amp; binding expressions"></a>Layouts &amp; binding expressions</h1><p>使用 Databinding 的 layout 文件与正常的略微有些不同，它使用了 <code>layout</code> 作为 root tag ，里面包裹着 <code>data</code> 元素和真正的 <code>view</code> 元素：   </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+    &lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+      &lt;data&gt;
+           &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+       &lt;/data&gt;
+    &lt;LinearLayout
+        android:orientation=&quot;vertical&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;&gt;
+        &lt;TextView android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:text=&quot;@{user.firstName}&quot;/&gt;
+        &lt;TextView android:layout_width=&quot;wrap_content&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:text=&quot;@{user.lastName}&quot;/&gt;
+    &lt;/LinearLayout&gt;
+&lt;/layout&gt;
+</code></pre><p>其中data 标签包裹着的变量 “<code>user</code>“ 即为当前 layout 所使用的属性：  </p>
+<pre><code>&lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot; /&gt;
+</code></pre><p>在使用该属性的表达式中，使用 “<code>@{}</code>“ 的语法来表示引用，这里， <code>TextView</code> 的文字被设置为 <code>user</code> 的 <code>firstName</code> 属性：</p>
+<pre><code>&lt;TextView android:layout_width=&quot;wrap_content&quot;
+          android:layout_height=&quot;wrap_content&quot;
+          android:text=&quot;@{user.firstName}&quot; /&gt;
+</code></pre><blockquote>
 <p>表达式应该尽可能的简洁，因为他们不能被单元测试。如果想要简化复杂的表达式，可以使用 Binding adapters。  </p>
 </blockquote>
-<h3 id="Data-object"><a href="#Data-object" class="headerlink" title="Data object"></a>Data object</h3><p>先来假设有一个普通的 Java 对象 – <code>User</code> ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public class User &#123;</div><div class="line">  public final String firstName;</div><div class="line">  public final String lastName;</div><div class="line">  public User(String firstName, String lastName) &#123;</div><div class="line">      this.firstName = firstName;</div><div class="line">      this.lastName = lastName;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>下面这种对象的数据永远不会变，这些数据通常都会被读取一次之后也不会被更改，对象也可以遵循公约定义一些 get 方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public class User &#123;</div><div class="line">  private final String firstName;</div><div class="line">  private final String lastName;</div><div class="line">  public User(String firstName, String lastName) &#123;</div><div class="line">      this.firstName = firstName;</div><div class="line">      this.lastName = lastName;</div><div class="line">  &#125;</div><div class="line">  public String getFirstName() &#123;</div><div class="line">      return this.firstName;</div><div class="line">  &#125;</div><div class="line">  public String getLastName() &#123;</div><div class="line">      return this.lastName;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>从数据绑定的角度来看，上面这两种类的写法是等价的，第一种写法的情况下，<code>android:text</code> 中的 <code>@{user.firstName}</code> 表达式会直接读取该类的 <code>firstName</code> 属性，第二种写法则是直接调用 <code>getFirstName()</code> 方法。另外，如果有 <code>firstName()</code> 方法也会被调用。  </p>
-<h2 id="Binding-data"><a href="#Binding-data" class="headerlink" title="Binding data"></a>Binding data</h2><p>Binding class 根据 <code>layout</code> 文件自动生成，默认情况下，绑定类的名字根据 layout 文件的名字反向生成并追加 <em>Binding</em> 后缀。上节的 <code>layout</code> 文件名字为 <code>activity_main.xml</code> ，对应的转换后的类名为 <code>MainActivityBinding</code> 。绑定类持有着所有的有关布局信息的绑定，并且知道如何根据绑定的表达式赋值。推荐的做法是在 inflafe layout 的同时创建绑定，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">   super.onCreate(savedInstanceState);</div><div class="line">   MainActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);</div><div class="line">   User user = new User(&quot;Test&quot;, &quot;User&quot;);</div><div class="line">   binding.setUser(user);</div><div class="line">&#125;</div><div class="line">```  </div><div class="line">&gt; gradle 插件版本 3.1.3，亲测 `activity_main.xml` 生成的类名为 `ActivityMainBinding` ，并没有反转</div><div class="line"></div><div class="line">在运行时，程序在 UI 上显示了 Test 。另外，也可以通过 LayoutInflater 来获取 view ，示例如下：</div></pre></td></tr></table></figure></p>
-<p>MainActivityBinding binding = MainActivityBinding.inflate(getLayoutInflater());<br>View view = binding.getRoot();<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">如果在 `Fragment` ， `ListView` ， `RecyclerView` adapter 中使用数据绑定的话，应该使用绑定类的 `inflate()` 方法，或是 `DataBindingUtil` ，示例如下：</div></pre></td></tr></table></figure></p>
-<p>ListItemBinding binding = ListItemBinding.inflate(layoutInflater, viewGroup, false);<br>// or<br>ListItemBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item, viewGroup, false);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 表达式</div><div class="line">### 一般功能</div><div class="line">你可以使用下列操作符和关键字：  </div><div class="line">- 数学表达式 `+ - / * %`</div><div class="line">- 字符串拼接 `+`</div><div class="line">- 逻辑操作符 `&amp;&amp; ||`</div><div class="line">- 二进制运算 `&amp; | ^`</div><div class="line">- 一元运算 `+ - ？ ！`</div><div class="line">- 位移 `&gt;&gt; &gt;&gt;&gt; &lt;&lt;`</div><div class="line">- 比较 `== &gt; &lt; &gt;= &lt;=`</div><div class="line">- `instanceof`</div><div class="line">- 分组 `()`</div><div class="line">- 字 `字符，字符串，数字，null`</div><div class="line">- 类型转换</div><div class="line">- 方法调用</div><div class="line">- 属性访问</div><div class="line">- 数组访问 `[]`</div><div class="line">- 三元运算符号 `?:`</div><div class="line"></div><div class="line">示例如下：</div></pre></td></tr></table></figure></p>
-<p>android:text=”@{String.valueOf(index + 1)}”<br>android:visibility=”@{age &lt; 13 ? View.GONE : View.VISIBLE}”<br>android:transitionName=’@{“image_” + id}’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 不支持的操作</div><div class="line">- `this`</div><div class="line">- `super`</div><div class="line">- `new`</div><div class="line">- 显式泛型调用</div><div class="line"></div><div class="line">### 空合并操作符</div><div class="line">空合并操作符 `??` 会在左边表达式为 `null` 的情况下返回右边表达式的值</div></pre></td></tr></table></figure></p>
-<p>android:text=”@{user.displayName ?? user.lastName}”<br>// 等价于<br>android:text=”@{user.displayName != null ? user.displayName : user.lastName}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 属性引用</div><div class="line">表达式可以直接引用同名的属性、get 方法和 `ObservableField` 对象：</div></pre></td></tr></table></figure></p>
-<p>android:text=”@{user.lastName}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 避免空指针异常</div><div class="line">生成的绑定类会自动检查 `null` 并且避免空指针异常，比如说表达式 `@&#123;user.name&#125;` 中，如果 `user` 为空， `user.name` 会被默认分配 `null` ，如果是 `user.age` ，年龄为 `int` 类型，数据绑定会返回默认值 `0`。  </div><div class="line"></div><div class="line">### 集合</div><div class="line">常用的集合，诸如 `arrays` ， `lists` ， `sparse lists` 和 `maps` 都可以用 `[]` 来访问</div></pre></td></tr></table></figure></p>
-<p><data><br>    <import type="android.util.SparseArray"><br>    <import type="java.util.Map"><br>    <import type="java.util.List"><br>    <variable name="list" type="List&lt;String&gt;"><br>    <variable name="sparse" type="SparseArray&lt;String&gt;"><br>    <variable name="map" type="Map&lt;String, String&gt;"><br>    <variable name="index" type="int"><br>    <variable name="key" type="String"><br></variable></variable></variable></variable></variable></import></import></import></data><br>…<br>android:text=”@{list[index]}”<br>…<br>android:text=”@{sparse[index]}”<br>…<br>android:text=”@{map[key]}”<br>…<br>android:text=”@{map.key}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 字符串文字</div></pre></td></tr></table></figure></p>
-<p>android:text=’@{map[“firstName”]}’<br>android:text=”@{map[<code>firstName</code>]}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">### 资源引用</div></pre></td></tr></table></figure></p>
-<p>android:padding=”@{large? @dimen/largePadding : @dimen/smallPadding}”<br>android:text=”@{@string/nameFormat(firstName, lastName)}”<br>android:text=”@{@plurals/banana(bananaCount)}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">有些资源需要更详细的声明，见下表：</div><div class="line"></div><div class="line">类型              | 通常引用  | 表达式引用</div><div class="line">------------------|-----------|-------------------</div><div class="line">String[]          | @array    | @stringArray</div><div class="line">int[]             | @array    | @intArray</div><div class="line">TypedArray        | @array    | @typedArray</div><div class="line">Animator          | @animator | @animator</div><div class="line">StateListAnimator | @animator | @stateListAnimator</div><div class="line">corlor int        | @color    | @color</div><div class="line">ColorStateList    | @color    | @ColorStateList</div><div class="line"></div><div class="line">## 事件处理</div><div class="line">数据绑定允许通过编写表达式来处理 view 分发的事件（例如 `onClick()`）。事件参数的名字由监听回调的方法名决定，当然也有少数例外：  </div><div class="line"></div><div class="line">类  |监听回调 setter   |参数写法  </div><div class="line">--|---|--</div><div class="line">SearchView  |setOnSearchClickListener(View.OnClickListener)   |android:onSearchClick  </div><div class="line">ZoomControls  |	setOnZoomInClickListener(View.OnClickListener)   |android:onZoomIn  </div><div class="line">ZoomControls  |setOnZoomOutClickListener(View.OnClickListener)   |android:onZoomOut  </div><div class="line"></div><div class="line">你可以使用两种机制来处理事件：</div><div class="line">- 方法引用：在你的表达式中可以直接调用符合监听函数签名的方法（方法名、参数、返回值类型一致），当表达式指向了一个方法引用的时候，数据绑定自动将方法引用和诉诸对象包裹在监听中，并将监听设置给目标 view ，如果表达式等于 null ， 数据绑定不会创建监听，反之会将监听设 null 。</div><div class="line">- 监听绑定：即为事件触发时调用的 lambda 表达式。数据绑定总是会创建监听并且会 set 给 view 。当事件分发的时候，监听会直接调用 lambda 表达式。</div><div class="line"></div><div class="line">### 方法引用</div><div class="line">时间可以直接绑定到相应的处理方法上，与 android:onClick 可以绑定 activity 中的一个方法一样。根使用 View 的 onClick 参数相比，方法引用表达式的一个主要的优点就是他是在编译时进行处理的，如果方法不存在或者方法签名不正确的话我们在编译的时候就能发现。  </div><div class="line">方法引用与监听绑定的主要区别就在于，实际的监听实现是在数据绑定的时候就创建了，而不是在事件出发的时候。如果你更倾向于在事件发生的时候调用表达式，你应该使用监听绑定。  </div><div class="line">要将事件分配给其处理程序，使用一个普通的绑定表达式，其值为要调用的方法的名称：</div></pre></td></tr></table></figure></p>
-<p>public class MyHandlers {<br>    public void onClickFriend(View view) { … }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">绑定表达式可以给 view 设置点击监听调用 onClickFriend() 方法：</div></pre></td></tr></table></figure></p>
-<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
-<p><layout xmlns:android="http://schemas.android.com/apk/res/android"><br>   <data><br>       <variable name="handlers" type="com.example.MyHandlers"><br>       <variable name="user" type="com.example.User"><br>   </variable></variable></data><br>   <linearlayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"><br>       <textview android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@{user.firstName}" android:onclick="@{handlers::onClickFriend}"><br>   </textview></linearlayout><br></layout><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">上述代码中的 `onClickFriend()` 方法的签名必须跟 `View.OnClickListener.onClick()` 方法一致  </div><div class="line"></div><div class="line">### 监听绑定</div><div class="line">监听绑定是事件发生的时候执行的绑定表达式。与方法引用类似，但是可以让你执行任意的数据绑定表达式。这个功能在 Gradle 2.0 以后的对应的 Android Gradle Plugin 版本中可用。</div><div class="line"></div><div class="line">在方法引用里，方法的参数和事件监听的回调参数必须一致。在使用监听绑定的时候，只需要确保返回值一致就行了。假设 `Presenter` 类有一个 `onSaveClick()` 方法：</div></pre></td></tr></table></figure></p>
-<p>public class Presenter {<br>    public void onSaveClick(Task task){}<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">然后将事件绑定到 `onSaveClick` 方法上：</div></pre></td></tr></table></figure></p>
-<p>&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
-<p><layout xmlns:android="http://schemas.android.com/apk/res/android"><br>    <data><br>        <variable name="task" type="com.android.example.Task"><br>        <variable name="presenter" type="com.android.example.Presenter"><br>    </variable></variable></data><br>    <linearlayout android:layout_width="match_parent" android:layout_height="match_parent"><br>        <button android:layout_width="wrap_content" android:layout_height="wrap_content" android:onclick="@{() -> presenter.onSaveClick(task)}"><br>    </button></linearlayout><br></layout><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">当回调方法被用在了表达式上后，数据绑定类自动创建必要的监听并且注册到该事件上。当 view 分发事件的时候，数据绑定会直接调用给定的表达式。与常规的表达式一样，在调用这些监听表达式时候，你依旧可以获得线程安全和 null 保护。  </div><div class="line">上面的例子中，我们没有给 `onSaveClick()` 方法定义 `onClick(View)` 中的 view 参数。监听绑定提供两种监听参数：要么忽略所有参数，要么声明所有的参数。如果你更倾向于声明所有参数，你就可以在你的表达式中使用他们了（就是 lambda 表达式的写法）。</div></pre></td></tr></table></figure></p>
-<p>// 你声明了 onClick 回调方法的所有参数（参数只有 view），但是你没有使用<br>android:onClick=”@{(view) -&gt; presenter.onSaveClick(task)}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">假如你想要在表达式中使用声明了的参数：</div></pre></td></tr></table></figure></p>
-<p>android:onClick=”@{(theViewINamed) -&gt; presenter.onSaveClick(theViewINamed, task)}”<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">public class Presenter &#123;</div><div class="line">    public void onSaveClick(View view, Task task)&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>当然你也可以使用带有多个参数的 lambda 表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public class Presenter &#123;</div><div class="line">    public void onCompletedChanged(Task task, boolean completed)&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// 即使在后面的表达式中只用了一个参数，也必须声明 onCheckedChanged 方法的所有参数</div><div class="line">&lt;CheckBox android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot;</div><div class="line">      android:onCheckedChanged=&quot;@&#123;(cb, isChecked) -&gt; presenter.completeChanged(task, isChecked)&#125;&quot; /&gt;</div></pre></td></tr></table></figure>
-<p>如果监听的事件回调函数有返回值的话，你的表达式也必须返回相同的类型。如果表达式因为 null 保护而无法被调用的话，数据绑定会默认但会该类型的默认值，引用类型为 <code>null</code> ， <code>int</code> 为 <code>0</code> ， <code>boolean</code> 为 <code>false</code> 。<br>如果你需要在表达式中使用断言（例如三目运算符），你可以使用 void 作为占位：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:onClick=&quot;@&#123;(v) -&gt; v.isVisible() ? doSomething() : void&#125;&quot;</div></pre></td></tr></table></figure></p>
-<h4 id="要避免复杂的监听"><a href="#要避免复杂的监听" class="headerlink" title="要避免复杂的监听"></a>要避免复杂的监听</h4><p>监听表达式非常强力，可以使你的代码简单易读。另一方面，包含复杂的表达式的监听可能是你的 layout 难于阅读和维护，这些表达式应该像 UI 向你自己的代码的监听传值一样简单。你应该在从侦听器表达式调用的回调方法中实现业务逻辑。  </p>
+<h3 id="Data-object"><a href="#Data-object" class="headerlink" title="Data object"></a>Data object</h3><p>先来假设有一个普通的 Java 对象 – <code>User</code> ：</p>
+<pre><code>public class User {
+    public final String firstName;
+    public final String lastName;
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+</code></pre><p>下面这种对象的数据永远不会变，这些数据通常都会被读取一次之后也不会被更改，对象也可以遵循公约定义一些 get 方法：</p>
+<pre><code>public class User {
+    private final String firstName;
+    private final String lastName;
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    public String getFirstName() {
+        return this.firstName;
+    }
+    public String getLastName() {
+        return this.lastName;
+    }
+}
+</code></pre><p>从数据绑定的角度来看，上面这两种类的写法是等价的，第一种写法的情况下，<code>android:text</code> 中的 <code>@{user.firstName}</code> 表达式会直接读取该类的 <code>firstName</code> 属性，第二种写法则是直接调用 <code>getFirstName()</code> 方法。另外，如果有 <code>firstName()</code> 方法也会被调用。  </p>
+<h2 id="Binding-data"><a href="#Binding-data" class="headerlink" title="Binding data"></a>Binding data</h2><p>Binding class 根据 <code>layout</code> 文件自动生成，默认情况下，绑定类的名字根据 layout 文件的名字反向生成并追加 <em>Binding</em> 后缀。上节的 <code>layout</code> 文件名字为 <code>activity_main.xml</code> ，对应的转换后的类名为 <code>MainActivityBinding</code> 。绑定类持有着所有的有关布局信息的绑定，并且知道如何根据绑定的表达式赋值。推荐的做法是在 inflafe layout 的同时创建绑定，如下：  </p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+   super.onCreate(savedInstanceState);
+   MainActivityBinding binding = DataBindingUtil.setContentView(this,   R.layout.activity_main);
+   User user = new User(&quot;Test&quot;, &quot;User&quot;);
+   binding.setUser(user);
+}
+</code></pre><blockquote>
+<p>gradle 插件版本 3.1.3，亲测 <code>activity_main.xml</code> 生成的类名为 <code>ActivityMainBinding</code> ，并没有反转</p>
+</blockquote>
+<p>在运行时，程序在 UI 上显示了 Test 。另外，也可以通过 LayoutInflater 来获取 view ，示例如下：  </p>
+<pre><code>MainActivityBinding binding = MainActivityBinding.inflate(getLayoutInflater());
+View view = binding.getRoot();
+</code></pre><p>如果在 <code>Fragment</code> ， <code>ListView</code> ， <code>RecyclerView</code> adapter 中使用数据绑定的话，应该使用绑定类的 <code>inflate()</code> 方法，或是 <code>DataBindingUtil</code> ，示例如下：</p>
+<pre><code>ListItemBinding binding = ListItemBinding.inflate(layoutInflater, viewGroup, false);
+// or
+ListItemBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item, viewGroup, false);
+</code></pre><h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><h3 id="一般功能"><a href="#一般功能" class="headerlink" title="一般功能"></a>一般功能</h3><p>你可以使用下列操作符和关键字：  </p>
+<ul>
+<li>数学表达式 <code>+ - / * %</code></li>
+<li>字符串拼接 <code>+</code></li>
+<li>逻辑操作符 <code>&amp;&amp; ||</code></li>
+<li>二进制运算 <code>&amp; | ^</code></li>
+<li>一元运算 <code>+ - ？ ！</code></li>
+<li>位移 <code>&gt;&gt; &gt;&gt;&gt; &lt;&lt;</code></li>
+<li>比较 <code>== &gt; &lt; &gt;= &lt;=</code></li>
+<li><code>instanceof</code></li>
+<li>分组 <code>()</code></li>
+<li>字 <code>字符，字符串，数字，null</code></li>
+<li>类型转换</li>
+<li>方法调用</li>
+<li>属性访问</li>
+<li>数组访问 <code>[]</code></li>
+<li>三元运算符号 <code>?:</code></li>
+</ul>
+<p>示例如下：</p>
+<pre><code>android:text=&quot;@{String.valueOf(index + 1)}&quot;
+android:visibility=&quot;@{age &lt; 13 ? View.GONE : View.VISIBLE}&quot;
+android:transitionName=&apos;@{&quot;image_&quot; + id}&apos;
+</code></pre><h3 id="不支持的操作"><a href="#不支持的操作" class="headerlink" title="不支持的操作"></a>不支持的操作</h3><ul>
+<li><code>this</code></li>
+<li><code>super</code></li>
+<li><code>new</code></li>
+<li>显式泛型调用</li>
+</ul>
+<h3 id="空合并操作符"><a href="#空合并操作符" class="headerlink" title="空合并操作符"></a>空合并操作符</h3><p>空合并操作符 <code>??</code> 会在左边表达式为 <code>null</code> 的情况下返回右边表达式的值  </p>
+<pre><code>android:text=&quot;@{user.displayName ?? user.lastName}&quot;
+// 等价于
+android:text=&quot;@{user.displayName != null ? user.displayName : user.lastName}&quot;
+</code></pre><h3 id="属性引用"><a href="#属性引用" class="headerlink" title="属性引用"></a>属性引用</h3><p>表达式可以直接引用同名的属性、get 方法和 <code>ObservableField</code> 对象：  </p>
+<pre><code>android:text=&quot;@{user.lastName}&quot;
+</code></pre><h3 id="避免空指针异常"><a href="#避免空指针异常" class="headerlink" title="避免空指针异常"></a>避免空指针异常</h3><p>生成的绑定类会自动检查 <code>null</code> 并且避免空指针异常，比如说表达式 <code>@{user.name}</code> 中，如果 <code>user</code> 为空， <code>user.name</code> 会被默认分配 <code>null</code> ，如果是 <code>user.age</code> ，年龄为 <code>int</code> 类型，数据绑定会返回默认值 <code>0</code>。  </p>
+<h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>常用的集合，诸如 <code>arrays</code> ， <code>lists</code> ， <code>sparse lists</code> 和 <code>maps</code> 都可以用 <code>[]</code> 来访问  </p>
+<pre><code>&lt;data&gt;
+    &lt;import type=&quot;android.util.SparseArray&quot;/&gt;
+    &lt;import type=&quot;java.util.Map&quot;/&gt;
+    &lt;import type=&quot;java.util.List&quot;/&gt;
+    &lt;variable name=&quot;list&quot; type=&quot;List&amp;lt;String&amp;gt;&quot;/&gt;
+    &lt;variable name=&quot;sparse&quot; type=&quot;SparseArray&amp;lt;String&amp;gt;&quot;/&gt;
+    &lt;variable name=&quot;map&quot; type=&quot;Map&amp;lt;String, String&amp;gt;&quot;/&gt;
+    &lt;variable name=&quot;index&quot; type=&quot;int&quot;/&gt;
+    &lt;variable name=&quot;key&quot; type=&quot;String&quot;/&gt;
+&lt;/data&gt;
+…
+android:text=&quot;@{list[index]}&quot;
+…
+android:text=&quot;@{sparse[index]}&quot;
+…
+android:text=&quot;@{map[key]}&quot;
+…
+android:text=&quot;@{map.key}&quot;
+</code></pre><h3 id="字符串文字"><a href="#字符串文字" class="headerlink" title="字符串文字"></a>字符串文字</h3><pre><code>android:text=&apos;@{map[&quot;firstName&quot;]}&apos;
+android:text=&quot;@{map[`firstName`]}&quot;
+</code></pre><h3 id="资源引用"><a href="#资源引用" class="headerlink" title="资源引用"></a>资源引用</h3><pre><code>android:padding=&quot;@{large? @dimen/largePadding : @dimen/smallPadding}&quot;
+android:text=&quot;@{@string/nameFormat(firstName, lastName)}&quot;
+android:text=&quot;@{@plurals/banana(bananaCount)}&quot;
+</code></pre><p>有些资源需要更详细的声明，见下表：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>通常引用</th>
+<th>表达式引用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String[]</td>
+<td>@array</td>
+<td>@stringArray</td>
+</tr>
+<tr>
+<td>int[]</td>
+<td>@array</td>
+<td>@intArray</td>
+</tr>
+<tr>
+<td>TypedArray</td>
+<td>@array</td>
+<td>@typedArray</td>
+</tr>
+<tr>
+<td>Animator</td>
+<td>@animator</td>
+<td>@animator</td>
+</tr>
+<tr>
+<td>StateListAnimator</td>
+<td>@animator</td>
+<td>@stateListAnimator</td>
+</tr>
+<tr>
+<td>corlor int</td>
+<td>@color</td>
+<td>@color</td>
+</tr>
+<tr>
+<td>ColorStateList</td>
+<td>@color</td>
+<td>@ColorStateList</td>
+</tr>
+</tbody>
+</table>
+<h2 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h2><p>数据绑定允许通过编写表达式来处理 view 分发的事件（例如 <code>onClick()</code>）。事件参数的名字由监听回调的方法名决定，当然也有少数例外：  </p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>监听回调 setter</th>
+<th>参数写法  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SearchView</td>
+<td>setOnSearchClickListener(View.OnClickListener)</td>
+<td>android:onSearchClick  </td>
+</tr>
+<tr>
+<td>ZoomControls</td>
+<td>setOnZoomInClickListener(View.OnClickListener)</td>
+<td>android:onZoomIn  </td>
+</tr>
+<tr>
+<td>ZoomControls</td>
+<td>setOnZoomOutClickListener(View.OnClickListener)</td>
+<td>android:onZoomOut  </td>
+</tr>
+</tbody>
+</table>
+<p>你可以使用两种机制来处理事件：</p>
+<ul>
+<li>方法引用：在你的表达式中可以直接调用符合监听函数签名的方法（方法名、参数、返回值类型一致），当表达式指向了一个方法引用的时候，数据绑定自动将方法引用和诉诸对象包裹在监听中，并将监听设置给目标 view ，如果表达式等于 null ， 数据绑定不会创建监听，反之会将监听设 null 。</li>
+<li>监听绑定：即为事件触发时调用的 lambda 表达式。数据绑定总是会创建监听并且会 set 给 view 。当事件分发的时候，监听会直接调用 lambda 表达式。</li>
+</ul>
+<h3 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h3><p>时间可以直接绑定到相应的处理方法上，与 android:onClick 可以绑定 activity 中的一个方法一样。根使用 View 的 onClick 参数相比，方法引用表达式的一个主要的优点就是他是在编译时进行处理的，如果方法不存在或者方法签名不正确的话我们在编译的时候就能发现。<br>方法引用与监听绑定的主要区别就在于，实际的监听实现是在数据绑定的时候就创建了，而不是在事件出发的时候。如果你更倾向于在事件发生的时候调用表达式，你应该使用监听绑定。<br>要将事件分配给其处理程序，使用一个普通的绑定表达式，其值为要调用的方法的名称：</p>
+<pre><code>public class MyHandlers {
+    public void onClickFriend(View view) { ... }
+}
+</code></pre><p>绑定表达式可以给 view 设置点击监听调用 onClickFriend() 方法：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+   &lt;data&gt;
+       &lt;variable name=&quot;handlers&quot; type=&quot;com.example.MyHandlers&quot;/&gt;
+       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+   &lt;/data&gt;
+   &lt;LinearLayout
+       android:orientation=&quot;vertical&quot;
+       android:layout_width=&quot;match_parent&quot;
+       android:layout_height=&quot;match_parent&quot;&gt;
+       &lt;TextView android:layout_width=&quot;wrap_content&quot;
+           android:layout_height=&quot;wrap_content&quot;
+           android:text=&quot;@{user.firstName}&quot;
+           android:onClick=&quot;@{handlers::onClickFriend}&quot;/&gt;
+   &lt;/LinearLayout&gt;
+&lt;/layout&gt;
+</code></pre><p>上述代码中的 <code>onClickFriend()</code> 方法的签名必须跟 <code>View.OnClickListener.onClick()</code> 方法一致  </p>
+<h3 id="监听绑定"><a href="#监听绑定" class="headerlink" title="监听绑定"></a>监听绑定</h3><p>监听绑定是事件发生的时候执行的绑定表达式。与方法引用类似，但是可以让你执行任意的数据绑定表达式。这个功能在 Gradle 2.0 以后的对应的 Android Gradle Plugin 版本中可用。</p>
+<p>在方法引用里，方法的参数和事件监听的回调参数必须一致。在使用监听绑定的时候，只需要确保返回值一致就行了。假设 <code>Presenter</code> 类有一个 <code>onSaveClick()</code> 方法：  </p>
+<pre><code>public class Presenter {
+    public void onSaveClick(Task task){}
+}
+</code></pre><p>然后将事件绑定到 <code>onSaveClick</code> 方法上：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;data&gt;
+        &lt;variable name=&quot;task&quot; type=&quot;com.android.example.Task&quot; /&gt;
+        &lt;variable name=&quot;presenter&quot; type=&quot;com.android.example.Presenter&quot; /&gt;
+    &lt;/data&gt;
+    &lt;LinearLayout android:layout_width=&quot;match_parent&quot; android:layout_height=&quot;match_parent&quot;&gt;
+        &lt;Button android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot;
+        android:onClick=&quot;@{() -&gt; presenter.onSaveClick(task)}&quot; /&gt;
+    &lt;/LinearLayout&gt;
+&lt;/layout&gt;
+</code></pre><p>当回调方法被用在了表达式上后，数据绑定类自动创建必要的监听并且注册到该事件上。当 view 分发事件的时候，数据绑定会直接调用给定的表达式。与常规的表达式一样，在调用这些监听表达式时候，你依旧可以获得线程安全和 null 保护。<br>上面的例子中，我们没有给 <code>onSaveClick()</code> 方法定义 <code>onClick(View)</code> 中的 view 参数。监听绑定提供两种监听参数：要么忽略所有参数，要么声明所有的参数。如果你更倾向于声明所有参数，你就可以在你的表达式中使用他们了（就是 lambda 表达式的写法）。</p>
+<pre><code>// 你声明了 onClick 回调方法的所有参数（参数只有 view），但是你没有使用
+android:onClick=&quot;@{(view) -&gt; presenter.onSaveClick(task)}&quot;
+</code></pre><p>假如你想要在表达式中使用声明了的参数：</p>
+<pre><code>android:onClick=&quot;@{(theViewINamed) -&gt; presenter.onSaveClick(theViewINamed, task)}&quot;
+
+
+public class Presenter {
+    public void onSaveClick(View view, Task task){}
+}
+</code></pre><p>当然你也可以使用带有多个参数的 lambda 表达式</p>
+<pre><code>public class Presenter {
+    public void onCompletedChanged(Task task, boolean completed){}
+}
+
+
+// 即使在后面的表达式中只用了一个参数，也必须声明 onCheckedChanged 方法的所有参数
+&lt;CheckBox android:layout_width=&quot;wrap_content&quot; android:layout_height=&quot;wrap_content&quot;
+      android:onCheckedChanged=&quot;@{(cb, isChecked) -&gt; presenter.completeChanged(task, isChecked)}&quot; /&gt;
+</code></pre><p>如果监听的事件回调函数有返回值的话，你的表达式也必须返回相同的类型。如果表达式因为 null 保护而无法被调用的话，数据绑定会默认但会该类型的默认值，引用类型为 <code>null</code> ， <code>int</code> 为 <code>0</code> ， <code>boolean</code> 为 <code>false</code> 。<br>如果你需要在表达式中使用断言（例如三目运算符），你可以使用 void 作为占位：  </p>
+<pre><code>android:onClick=&quot;@{(v) -&gt; v.isVisible() ? doSomething() : void}&quot;
+</code></pre><h4 id="要避免复杂的监听"><a href="#要避免复杂的监听" class="headerlink" title="要避免复杂的监听"></a>要避免复杂的监听</h4><p>监听表达式非常强力，可以使你的代码简单易读。另一方面，包含复杂的表达式的监听可能是你的 layout 难于阅读和维护，这些表达式应该像 UI 向你自己的代码的监听传值一样简单。你应该在从侦听器表达式调用的回调方法中实现业务逻辑。  </p>
 <h2 id="Imports-，variables-和-includes"><a href="#Imports-，variables-和-includes" class="headerlink" title="Imports ，variables 和 includes"></a>Imports ，variables 和 includes</h2><p>数据绑定库也提供诸如 imports ， variables ， includes 的功能。Imports 可以让在布局文件中引用类更简单。Variables 可以使你描述细节并用到表达式中。Includes 可以让你复用复杂的布局。</p>
-<h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><p>可以引用类。例如导入了 android.view.View 类就可以使用 View.VISIABLE 和 View.GONE 了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;data&gt;</div><div class="line">    &lt;import type=&quot;android.view.View&quot;/&gt;</div><div class="line">&lt;/data&gt;</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;TextView</div><div class="line">   android:text=&quot;@&#123;user.lastName&#125;&quot;</div><div class="line">   android:layout_width=&quot;wrap_content&quot;</div><div class="line">   android:layout_height=&quot;wrap_content&quot;</div><div class="line">   android:visibility=&quot;@&#123;user.isAdult ? View.VISIBLE : View.GONE&#125;&quot;/&gt;</div></pre></td></tr></table></figure>
-<h4 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h4><p>当导入的类名有冲突的时候，我们可以给类指定别名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 此时 View 指代 android.view.View ，使用 Vista 指代 com.example.real.estate.View</div><div class="line">&lt;import type=&quot;android.view.View&quot;/&gt;</div><div class="line">&lt;import type=&quot;com.example.real.estate.View&quot;</div><div class="line">        alias=&quot;Vista&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<h4 id="导入其他类"><a href="#导入其他类" class="headerlink" title="导入其他类"></a>导入其他类</h4><p>导入的类可以作为其他类型的引用，下面这个例子展示了 <code>User</code> 类被 <code>List</code> 类用来做类型参数的情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;data&gt;</div><div class="line">    &lt;import type=&quot;com.example.User&quot;/&gt;</div><div class="line">    &lt;import type=&quot;java.util.List&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;user&quot; type=&quot;User&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;userList&quot; type=&quot;List&amp;lt;User&amp;gt;&quot;/&gt; // 没错，&lt;&gt;要转义</div><div class="line">&lt;/data&gt;</div></pre></td></tr></table></figure></p>
-<p>也可以用导入的类进行类型转换：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;TextView</div><div class="line">   android:text=&quot;@&#123;((User)(user.connection)).lastName&#125;&quot;</div><div class="line">   android:layout_width=&quot;wrap_content&quot;</div><div class="line">   android:layout_height=&quot;wrap_content&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<p>导入类可以直接调用静态方法和字段，下面的例子引用了 <code>MyStringUtils</code> 类的静态方法 <code>capitalize()</code> :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;data&gt;</div><div class="line">    &lt;import type=&quot;com.example.MyStringUtils&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;</div><div class="line">&lt;/data&gt;</div><div class="line">…</div><div class="line">&lt;TextView</div><div class="line">   android:text=&quot;@&#123;MyStringUtils.capitalize(user.lastName)&#125;&quot;</div><div class="line">   android:layout_width=&quot;wrap_content&quot;</div><div class="line">   android:layout_height=&quot;wrap_content&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h3><p>你可以在 <code>data</code> 标签中使用多个 <code>variable</code> 元素。每个 <code>variable</code> 都描述了一个可以在 layout 表达式中能用到的属性。下面的代码声明了 <code>user</code> ， <code>image</code> ， <code>note</code> 变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;data&gt;</div><div class="line">    &lt;import type=&quot;android.graphics.drawable.Drawable&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;image&quot; type=&quot;Drawable&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;note&quot; type=&quot;String&quot;/&gt;</div><div class="line">&lt;/data&gt;</div></pre></td></tr></table></figure></p>
-<p>变量的类型会在编译时进行检查，因此如果变量实现了 <code>Observable</code> 或者是一个 <code>Observable Colloction</code> 的话，那他就会是可反射的。如果变量是一个基本类或者是一个没实现 <code>Observable</code> 的接口，那么这个变量就不是可观察的。<br>当布局文件根据不同配置发生改变的时候，变量时合并了的。这些布局文件中的变量绝对不可以有冲突。<br>生成的绑定类有对应每一个变量的 getter 和 setter ，直到 setter 被调用之前，变量都会使用其对应类型的默认值。<br>一个叫做 <code>context</code> 的特殊的变量被自动生成，以用来在表达式中使用。 <code>context</code> 的值相当于 root view 调用 <code>getContext()</code> 的返的 <code>Context</code> 对象。 <code>context</code> 会被显示声明的相同名称的变量所覆盖。  </p>
-<h3 id="Includes"><a href="#Includes" class="headerlink" title="Includes"></a>Includes</h3><p>变量可以通过在 <code>include</code> 标签中使用 app 的命名空间并设置其对应的变量名来将变量传入到 include 的 layout 中。示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">        xmlns:bind=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;</div><div class="line">   &lt;data&gt;</div><div class="line">       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;</div><div class="line">   &lt;/data&gt;</div><div class="line">   &lt;LinearLayout</div><div class="line">       android:orientation=&quot;vertical&quot;</div><div class="line">       android:layout_width=&quot;match_parent&quot;</div><div class="line">       android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line">       &lt;include layout=&quot;@layout/name&quot;</div><div class="line">           bind:user=&quot;@&#123;user&#125;&quot;/&gt;</div><div class="line">       &lt;include layout=&quot;@layout/contact&quot;</div><div class="line">           bind:user=&quot;@&#123;user&#125;&quot;/&gt;</div><div class="line">   &lt;/LinearLayout&gt;</div><div class="line">&lt;/layout&gt;</div></pre></td></tr></table></figure></p>
-<p>数据绑定不支持 <code>include</code> 作为 <code>merge</code> 元素的直接子元素。例如，<em>以下的布局是不支持的</em>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</div><div class="line">&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</div><div class="line">        xmlns:bind=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;</div><div class="line">   &lt;data&gt;</div><div class="line">       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;</div><div class="line">   &lt;/data&gt;</div><div class="line">   &lt;merge&gt;&lt;!-- Doesn&apos;t work --&gt;</div><div class="line">       &lt;include layout=&quot;@layout/name&quot;</div><div class="line">           bind:user=&quot;@&#123;user&#125;&quot;/&gt;</div><div class="line">       &lt;include layout=&quot;@layout/contact&quot;</div><div class="line">           bind:user=&quot;@&#123;user&#125;&quot;/&gt;</div><div class="line">   &lt;/merge&gt;</div><div class="line">&lt;/layout&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="Work-with-observable-data-objects"><a href="#Work-with-observable-data-objects" class="headerlink" title="Work with observable data objects"></a>Work with observable data objects</h1><p>可观察性（Observability）代表着在一个对象可以通知其他对象他的数据变化的能力。数据绑定库可以让你将对象、字段、集合变为可观察的（observable）。<br>任何普通的 Java 类都可以用来做数据绑定，但是变更这个对象的时候不会自动通知 UI 更新数据。数据绑定可以是你的对象在数据变化的时候通知其他对象，也就是通知他的监听器。有三种 observable 的类型，对象、字段和集合。<br>当以上任意一种 observable 的数据被绑定到 UI 上后，当其数据发生变化时，UI 也会自动更新。  </p>
+<h3 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a>Imports</h3><p>可以引用类。例如导入了 android.view.View 类就可以使用 View.VISIABLE 和 View.GONE 了：</p>
+<pre><code>&lt;data&gt;
+    &lt;import type=&quot;android.view.View&quot;/&gt;
+&lt;/data&gt;
+
+
+&lt;TextView
+   android:text=&quot;@{user.lastName}&quot;
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;
+   android:visibility=&quot;@{user.isAdult ? View.VISIBLE : View.GONE}&quot;/&gt;
+</code></pre><h4 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h4><p>当导入的类名有冲突的时候，我们可以给类指定别名：</p>
+<pre><code>// 此时 View 指代 android.view.View ，使用 Vista 指代 com.example.real.estate.View
+&lt;import type=&quot;android.view.View&quot;/&gt;
+&lt;import type=&quot;com.example.real.estate.View&quot;
+        alias=&quot;Vista&quot;/&gt;
+</code></pre><h4 id="导入其他类"><a href="#导入其他类" class="headerlink" title="导入其他类"></a>导入其他类</h4><p>导入的类可以作为其他类型的引用，下面这个例子展示了 <code>User</code> 类被 <code>List</code> 类用来做类型参数的情况：</p>
+<pre><code>&lt;data&gt;
+    &lt;import type=&quot;com.example.User&quot;/&gt;
+    &lt;import type=&quot;java.util.List&quot;/&gt;
+    &lt;variable name=&quot;user&quot; type=&quot;User&quot;/&gt;
+    &lt;variable name=&quot;userList&quot; type=&quot;List&amp;lt;User&amp;gt;&quot;/&gt; // 没错，&lt;&gt;要转义
+&lt;/data&gt;
+</code></pre><p>也可以用导入的类进行类型转换：</p>
+<pre><code>&lt;TextView
+   android:text=&quot;@{((User)(user.connection)).lastName}&quot;
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><p>导入类可以直接调用静态方法和字段，下面的例子引用了 <code>MyStringUtils</code> 类的静态方法 <code>capitalize()</code> :  </p>
+<pre><code>&lt;data&gt;
+    &lt;import type=&quot;com.example.MyStringUtils&quot;/&gt;
+    &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+&lt;/data&gt;
+…
+&lt;TextView
+   android:text=&quot;@{MyStringUtils.capitalize(user.lastName)}&quot;
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><h3 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h3><p>你可以在 <code>data</code> 标签中使用多个 <code>variable</code> 元素。每个 <code>variable</code> 都描述了一个可以在 layout 表达式中能用到的属性。下面的代码声明了 <code>user</code> ， <code>image</code> ， <code>note</code> 变量：</p>
+<pre><code>&lt;data&gt;
+    &lt;import type=&quot;android.graphics.drawable.Drawable&quot;/&gt;
+    &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+    &lt;variable name=&quot;image&quot; type=&quot;Drawable&quot;/&gt;
+    &lt;variable name=&quot;note&quot; type=&quot;String&quot;/&gt;
+&lt;/data&gt;
+</code></pre><p>变量的类型会在编译时进行检查，因此如果变量实现了 <code>Observable</code> 或者是一个 <code>Observable Colloction</code> 的话，那他就会是可反射的。如果变量是一个基本类或者是一个没实现 <code>Observable</code> 的接口，那么这个变量就不是可观察的。<br>当布局文件根据不同配置发生改变的时候，变量时合并了的。这些布局文件中的变量绝对不可以有冲突。<br>生成的绑定类有对应每一个变量的 getter 和 setter ，直到 setter 被调用之前，变量都会使用其对应类型的默认值。<br>一个叫做 <code>context</code> 的特殊的变量被自动生成，以用来在表达式中使用。 <code>context</code> 的值相当于 root view 调用 <code>getContext()</code> 的返的 <code>Context</code> 对象。 <code>context</code> 会被显示声明的相同名称的变量所覆盖。  </p>
+<h3 id="Includes"><a href="#Includes" class="headerlink" title="Includes"></a>Includes</h3><p>变量可以通过在 <code>include</code> 标签中使用 app 的命名空间并设置其对应的变量名来将变量传入到 include 的 layout 中。示例如下：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        xmlns:bind=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;
+   &lt;data&gt;
+       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+   &lt;/data&gt;
+   &lt;LinearLayout
+       android:orientation=&quot;vertical&quot;
+       android:layout_width=&quot;match_parent&quot;
+       android:layout_height=&quot;match_parent&quot;&gt;
+       &lt;include layout=&quot;@layout/name&quot;
+           bind:user=&quot;@{user}&quot;/&gt;
+       &lt;include layout=&quot;@layout/contact&quot;
+           bind:user=&quot;@{user}&quot;/&gt;
+   &lt;/LinearLayout&gt;
+&lt;/layout&gt;
+</code></pre><p>数据绑定不支持 <code>include</code> 作为 <code>merge</code> 元素的直接子元素。例如，<em>以下的布局是不支持的</em>：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+        xmlns:bind=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;
+   &lt;data&gt;
+       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+   &lt;/data&gt;
+   &lt;merge&gt;&lt;!-- Doesn&apos;t work --&gt;
+       &lt;include layout=&quot;@layout/name&quot;
+           bind:user=&quot;@{user}&quot;/&gt;
+       &lt;include layout=&quot;@layout/contact&quot;
+           bind:user=&quot;@{user}&quot;/&gt;
+   &lt;/merge&gt;
+&lt;/layout&gt;
+</code></pre><h1 id="Work-with-observable-data-objects"><a href="#Work-with-observable-data-objects" class="headerlink" title="Work with observable data objects"></a>Work with observable data objects</h1><p>可观察性（Observability）代表着在一个对象可以通知其他对象他的数据变化的能力。数据绑定库可以让你将对象、字段、集合变为可观察的（observable）。<br>任何普通的 Java 类都可以用来做数据绑定，但是变更这个对象的时候不会自动通知 UI 更新数据。数据绑定可以是你的对象在数据变化的时候通知其他对象，也就是通知他的监听器。有三种 observable 的类型，对象、字段和集合。<br>当以上任意一种 observable 的数据被绑定到 UI 上后，当其数据发生变化时，UI 也会自动更新。  </p>
 <h2 id="Observable-fields"><a href="#Observable-fields" class="headerlink" title="Observable fields"></a>Observable fields</h2><p>创建实现了 <code>Observable</code> 接口的类需要做好些工作，这对于你那些只有几个字段的类来说并不友好。这种情况下，你可以使用通用的 <code>Observable</code> 类，下联就列举了基本类型的 observable 版本：</p>
 <ul>
 <li>ObservableBoolean</li>
@@ -383,94 +695,370 @@
 <li>ObservableDouble</li>
 <li>ObservableParcelable</li>
 </ul>
-<p><code>Observable</code> 字段 自带了包含有一个字段的 observable 对象。原始版本在访问操作期间可以避免装箱和拆箱。为了利用这个机制，我们在 Java 语言中将其用 <code>public final</code> 修饰（为了保持其引用不变），在 Kotlin 中使用 <code>val</code> 修饰（只读）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">private static class User &#123;</div><div class="line">    public final ObservableField&lt;String&gt; firstName = new ObservableField&lt;&gt;();</div><div class="line">    public final ObservableField&lt;String&gt; lastName = new ObservableField&lt;&gt;();</div><div class="line">    public final ObservableInt age = new ObservableInt();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>使用 <code>set()</code> <code>get()</code> 方法以访问其中的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">user.firstName.set(&quot;Google&quot;);</div><div class="line">int age = user.age.get();</div></pre></td></tr></table></figure></p>
-<blockquote>
+<p><code>Observable</code> 字段 自带了包含有一个字段的 observable 对象。原始版本在访问操作期间可以避免装箱和拆箱。为了利用这个机制，我们在 Java 语言中将其用 <code>public final</code> 修饰（为了保持其引用不变），在 Kotlin 中使用 <code>val</code> 修饰（只读）：</p>
+<pre><code>private static class User {
+    public final ObservableField&lt;String&gt; firstName = new ObservableField&lt;&gt;();
+    public final ObservableField&lt;String&gt; lastName = new ObservableField&lt;&gt;();
+    public final ObservableInt age = new ObservableInt();
+}
+</code></pre><p>使用 <code>set()</code> <code>get()</code> 方法以访问其中的值：</p>
+<pre><code>user.firstName.set(&quot;Google&quot;);
+int age = user.age.get();
+</code></pre><blockquote>
 <p>Android Studio 3.1 及更高版本会建议你用 LiveData 来替换 observable 字段，详见 LiveData 文档</p>
 </blockquote>
-<h2 id="Observable-collections"><a href="#Observable-collections" class="headerlink" title="Observable collections"></a>Observable collections</h2><p>有些 app 使用动态的结构来保存数据。<code>Observable collections</code> 允许通过 key <code>来访问这些数据结构。ObservableArrayMap</code> 类在 key 是引用类型的时候就很有帮助，例如 <code>String</code> ，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ObservableArrayMap&lt;String, Object&gt; user = new ObservableArrayMap&lt;&gt;();</div><div class="line">user.put(&quot;firstName&quot;, &quot;Google&quot;);</div><div class="line">user.put(&quot;lastName&quot;, &quot;Inc.&quot;);</div><div class="line">user.put(&quot;age&quot;, 17);</div></pre></td></tr></table></figure></p>
-<p>在 layout 文件中，这个 map 可以用 <code>String</code> 类型的 key 来访问：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;data&gt;</div><div class="line">    &lt;import type=&quot;android.databinding.ObservableMap&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;user&quot; type=&quot;ObservableMap&lt;String, Object&gt;&quot;/&gt;</div><div class="line">&lt;/data&gt;</div><div class="line">…</div><div class="line">&lt;TextView</div><div class="line">    android:text=&quot;@&#123;user.lastName&#125;&quot;</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;/&gt;</div><div class="line">&lt;TextView</div><div class="line">    android:text=&quot;@&#123;String.valueOf(1 + (Integer)user.age)&#125;&quot;</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<p><code>ObservableArrayList</code> 用于 key 是一个 <code>Integer</code> 的情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ObservableArrayList&lt;Object&gt; user = new ObservableArrayList&lt;&gt;();</div><div class="line">user.add(&quot;Google&quot;);</div><div class="line">user.add(&quot;Inc.&quot;);</div><div class="line">user.add(17);</div></pre></td></tr></table></figure></p>
-<p>在 layout 文件中即可用 index 来访问数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;data&gt;</div><div class="line">    &lt;import type=&quot;android.databinding.ObservableList&quot;/&gt;</div><div class="line">    &lt;import type=&quot;com.example.my.app.Fields&quot;/&gt;</div><div class="line">    &lt;variable name=&quot;user&quot; type=&quot;ObservableList&lt;Object&gt;&quot;/&gt;</div><div class="line">&lt;/data&gt;</div><div class="line">…</div><div class="line">&lt;TextView</div><div class="line">    android:text=&apos;@&#123;user[Fields.LAST_NAME]&#125;&apos;</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;/&gt;</div><div class="line">&lt;TextView</div><div class="line">    android:text=&apos;@&#123;String.valueOf(1 + (Integer)user[Fields.AGE])&#125;&apos;</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="Observable-objects"><a href="#Observable-objects" class="headerlink" title="Observable objects"></a>Observable objects</h2><p>实现了 <code>Observable</code> 接口的类可以让注册了的监听起们在数据变化的时候获得通知。<br><code>Observable</code> 接口有添加和移除监听器的机制，但是你必须决定什么时候去发通知。为了使开发工作更简单，数据绑定库提供了已经实现了监听器注册机制的 <code>BaseObservable</code> 类。实现 <code>BaseObservable</code> 的类负责在数据变化的时候发出通知。通过给 getter 方法注解 <code>Bindable</code> 、然后在 setter 方法中调用 <code>notifyPropertyChanged()</code> 方法来实现，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">private static class User extends BaseObservable &#123;</div><div class="line">    private String firstName;</div><div class="line">    private String lastName;</div><div class="line"></div><div class="line">    @Bindable</div><div class="line">    public String getFirstName() &#123;</div><div class="line">        return this.firstName;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Bindable</div><div class="line">    public String getLastName() &#123;</div><div class="line">        return this.lastName;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setFirstName(String firstName) &#123;</div><div class="line">        this.firstName = firstName;</div><div class="line">        notifyPropertyChanged(BR.firstName);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setLastName(String lastName) &#123;</div><div class="line">        this.lastName = lastName;</div><div class="line">        notifyPropertyChanged(BR.lastName);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>数据绑定在对应的 module 中生成一个叫做 <code>BR</code> 的类（类似于 <code>R</code> ），其中包含了数据绑定的资源的 ID <code>。Bindable</code> 注解在编译时在 <code>BR</code> 类中生成一个实体类。如果数据类的类型是不可变的，则可以使用 <code>PropertyChangeRegistry</code> 对象实现 <code>Observable</code> 接口，以高效的注册和通知监听器。</p>
+<h2 id="Observable-collections"><a href="#Observable-collections" class="headerlink" title="Observable collections"></a>Observable collections</h2><p>有些 app 使用动态的结构来保存数据。<code>Observable collections</code> 允许通过 key <code>来访问这些数据结构。ObservableArrayMap</code> 类在 key 是引用类型的时候就很有帮助，例如 <code>String</code> ，示例如下：  </p>
+<pre><code>ObservableArrayMap&lt;String, Object&gt; user = new ObservableArrayMap&lt;&gt;();
+user.put(&quot;firstName&quot;, &quot;Google&quot;);
+user.put(&quot;lastName&quot;, &quot;Inc.&quot;);
+user.put(&quot;age&quot;, 17);
+</code></pre><p>在 layout 文件中，这个 map 可以用 <code>String</code> 类型的 key 来访问：</p>
+<pre><code>&lt;data&gt;
+    &lt;import type=&quot;android.databinding.ObservableMap&quot;/&gt;
+    &lt;variable name=&quot;user&quot; type=&quot;ObservableMap&lt;String, Object&gt;&quot;/&gt;
+&lt;/data&gt;
+…
+&lt;TextView
+    android:text=&quot;@{user.lastName}&quot;
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;/&gt;
+&lt;TextView
+    android:text=&quot;@{String.valueOf(1 + (Integer)user.age)}&quot;
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><p><code>ObservableArrayList</code> 用于 key 是一个 <code>Integer</code> 的情况：  </p>
+<pre><code>ObservableArrayList&lt;Object&gt; user = new ObservableArrayList&lt;&gt;();
+user.add(&quot;Google&quot;);
+user.add(&quot;Inc.&quot;);
+user.add(17);
+</code></pre><p>在 layout 文件中即可用 index 来访问数据：  </p>
+<pre><code>&lt;data&gt;
+    &lt;import type=&quot;android.databinding.ObservableList&quot;/&gt;
+    &lt;import type=&quot;com.example.my.app.Fields&quot;/&gt;
+    &lt;variable name=&quot;user&quot; type=&quot;ObservableList&lt;Object&gt;&quot;/&gt;
+&lt;/data&gt;
+…
+&lt;TextView
+    android:text=&apos;@{user[Fields.LAST_NAME]}&apos;
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;/&gt;
+&lt;TextView
+    android:text=&apos;@{String.valueOf(1 + (Integer)user[Fields.AGE])}&apos;
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><h2 id="Observable-objects"><a href="#Observable-objects" class="headerlink" title="Observable objects"></a>Observable objects</h2><p>实现了 <code>Observable</code> 接口的类可以让注册了的监听起们在数据变化的时候获得通知。<br><code>Observable</code> 接口有添加和移除监听器的机制，但是你必须决定什么时候去发通知。为了使开发工作更简单，数据绑定库提供了已经实现了监听器注册机制的 <code>BaseObservable</code> 类。实现 <code>BaseObservable</code> 的类负责在数据变化的时候发出通知。通过给 getter 方法注解 <code>Bindable</code> 、然后在 setter 方法中调用 <code>notifyPropertyChanged()</code> 方法来实现，示例如下：  </p>
+<pre><code>private static class User extends BaseObservable {
+    private String firstName;
+    private String lastName;
+
+    @Bindable
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    @Bindable
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+        notifyPropertyChanged(BR.firstName);
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+        notifyPropertyChanged(BR.lastName);
+    }
+}
+</code></pre><p>数据绑定在对应的 module 中生成一个叫做 <code>BR</code> 的类（类似于 <code>R</code> ），其中包含了数据绑定的资源的 ID <code>。Bindable</code> 注解在编译时在 <code>BR</code> 类中生成一个实体类。如果数据类的类型是不可变的，则可以使用 <code>PropertyChangeRegistry</code> 对象实现 <code>Observable</code> 接口，以高效的注册和通知监听器。</p>
 <h1 id="Generated-binding-classes"><a href="#Generated-binding-classes" class="headerlink" title="Generated binding classes"></a>Generated binding classes</h1><p>数据绑定库默认会生成类来访问 layout 里面的变量和视图。下面会展示如何创建和自定义绑定类。<br>生成的绑定类将 layout 中的变量和视图联系了起来。绑定类的包名和类名都可以自定义。所有的绑定类都继承于 <code>ViewDataBinding</code> 类。<br>每一个 layout 文件都会生成一个对应的绑定类。默认情况下，类名基于 layout 文件的名称进行驼峰命名并追加 <code>Binding</code> 后缀。上文的 layout 文件名为 <code>activity_main.xml</code> ，生成的类名即为 <code>ActivityMainBinding</code> 。这个类持有着所有的布局中视图信息，可以根据绑定的表达式给视图设置属性。  </p>
-<h2 id="Create-a-binding-object"><a href="#Create-a-binding-object" class="headerlink" title="Create a binding object"></a>Create a binding object</h2><p>绑定类对象紧接着在填充布局之后被创建，以确保视图在绑定之前不会被修改。将绑定类对象绑定到 layout 最常用的方法就是使用绑定类的静态方法。你可以通过调用绑定类的静态方法 <code>inflate()</code> 来同时完成填充布局和视图绑定。示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">  super.onCreate(savedInstanceState);</div><div class="line">  MyLayoutBinding binding = MyLayoutBinding.inflate(getLayoutInflater());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>有一个 <code>inflate()</code> 的重载方法接收除了 <code>LayoutInflater</code> 之外的一个参数 – <code>ViewGroup</code> ，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MyLayoutBinding binding = MyLayoutBinding.inflate(getLayoutInflater(), viewGroup, false);</div></pre></td></tr></table></figure></p>
-<p>如果布局已经通过其他形式 inflate 了，可以如下进行单独的绑定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MyLayoutBinding binding = MyLayoutBinding.bind(viewRoot);</div></pre></td></tr></table></figure></p>
-<p>有些情况下，绑定类的类型无法事先得知，可以用 <code>DataBindingUtil</code> 来创建绑定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater, layoutId,</div><div class="line">    parent, attachToParent);</div><div class="line">ViewDataBinding binding = DataBindingUtil.bindTo(viewRoot, layoutId);</div></pre></td></tr></table></figure></p>
-<p>如果你结合 <code>Fragment</code> ， <code>ListView</code> 或者 <code>RecyclerView</code> Adapter 使用数据绑定，你应该使用绑定类的 <code>inflate()</code> 方法，或者 <code>DataBindingUtil</code> 类，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ListItemBinding binding = ListItemBinding.inflate(layoutInflater, viewGroup, false);</div><div class="line">// or</div><div class="line">ListItemBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item, viewGroup, false);</div></pre></td></tr></table></figure></p>
-<h2 id="带有-ID-的-View"><a href="#带有-ID-的-View" class="headerlink" title="带有 ID 的 View"></a>带有 ID 的 View</h2><p>数据绑定库在绑定类中为每个在 layout 中带有 ID 的 <code>View</code> 创建了 immutable 的字段。例如数据绑定库会创建名叫 <code>firstName</code> 和 <code>lastName</code> 的 <code>TextView</code> 字段，在生成的绑定类中可以看到他们是被 <code>final</code> 修饰的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</div><div class="line">   &lt;data&gt;</div><div class="line">       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;</div><div class="line">   &lt;/data&gt;</div><div class="line">   &lt;LinearLayout</div><div class="line">       android:orientation=&quot;vertical&quot;</div><div class="line">       android:layout_width=&quot;match_parent&quot;</div><div class="line">       android:layout_height=&quot;match_parent&quot;&gt;</div><div class="line">       &lt;TextView android:layout_width=&quot;wrap_content&quot;</div><div class="line">           android:layout_height=&quot;wrap_content&quot;</div><div class="line">           android:text=&quot;@&#123;user.firstName&#125;&quot;</div><div class="line">   android:id=&quot;@+id/firstName&quot;/&gt;</div><div class="line">       &lt;TextView android:layout_width=&quot;wrap_content&quot;</div><div class="line">           android:layout_height=&quot;wrap_content&quot;</div><div class="line">           android:text=&quot;@&#123;user.lastName&#125;&quot;</div><div class="line">  android:id=&quot;@+id/lastName&quot;/&gt;</div><div class="line">   &lt;/LinearLayout&gt;</div><div class="line">&lt;/layout&gt;</div></pre></td></tr></table></figure></p>
-<p>数据绑定库在同一个类中提取了带有 ID 的 view 。这个机制可比给每个 <code>View</code> 都调用 <code>findViewById()</code> 快多了。<br>不使用数据绑定的话 ID 看起来没什么意义，但是仍然在有些情况需要在代码中调用。  </p>
-<h2 id="Variables-1"><a href="#Variables-1" class="headerlink" title="Variables"></a>Variables</h2><p>数据绑定库为在布局中声明了的变量提供了访问方法。在下面的示例中，为 <code>user</code> ， <code>image</code> 和 <code>note</code> 生成了对应的 getter 和 setter 方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;data&gt;</div><div class="line">   &lt;import type=&quot;android.graphics.drawable.Drawable&quot;/&gt;</div><div class="line">   &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;</div><div class="line">   &lt;variable name=&quot;image&quot; type=&quot;Drawable&quot;/&gt;</div><div class="line">   &lt;variable name=&quot;note&quot; type=&quot;String&quot;/&gt;</div><div class="line">&lt;/data&gt;</div></pre></td></tr></table></figure></p>
-<h2 id="ViewStubs"><a href="#ViewStubs" class="headerlink" title="ViewStubs"></a>ViewStubs</h2><p>与正常的 <code>View</code> 对象不同， <code>ViewStub</code> 对象最开始是一个不可见的 view 。当他们被设为可见或者被明确调用了 <code>inflate()</code> 方法的时候，他们才将自己替换成即将被渲染的 view 。<br>因为 <code>ViewStub</code> 最终会在视图层次中消失，绑定对象中的 view 为了能被垃圾回收也需要销毁。因为 view 是 <code>final</code> 的， <code>ViewStubProxy</code> 对象会在生成的绑定类中替代 <code>ViewStub</code> ， 以此来在 <code>ViewStub</code> 存在的时候提供对 <code>ViewStub</code> 的访问，以及在 <code>ViewStub</code> inflate 之后提供对视图的访问。<br>当 inflate 另一个 layout 的时候，必须为新的布局建立绑定。因此， <code>ViewStubProxy</code> 必须监听 <code>ViewStub</code> 的 <code>OnInflateListener</code> ，并且在需要的时候建立绑定。由于在给定的时间内只能存在一个监听器， <code>ViewStubProxy</code> 允许你设置 <code>OnInflateListener</code> ， 并且在建立绑定之后得到回调。  </p>
+<h2 id="Create-a-binding-object"><a href="#Create-a-binding-object" class="headerlink" title="Create a binding object"></a>Create a binding object</h2><p>绑定类对象紧接着在填充布局之后被创建，以确保视图在绑定之前不会被修改。将绑定类对象绑定到 layout 最常用的方法就是使用绑定类的静态方法。你可以通过调用绑定类的静态方法 <code>inflate()</code> 来同时完成填充布局和视图绑定。示例如下：  </p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  MyLayoutBinding binding = MyLayoutBinding.inflate(getLayoutInflater());
+}
+</code></pre><p>有一个 <code>inflate()</code> 的重载方法接收除了 <code>LayoutInflater</code> 之外的一个参数 – <code>ViewGroup</code> ，示例如下：  </p>
+<pre><code>MyLayoutBinding binding = MyLayoutBinding.inflate(getLayoutInflater(), viewGroup, false);
+</code></pre><p>如果布局已经通过其他形式 inflate 了，可以如下进行单独的绑定：  </p>
+<pre><code>MyLayoutBinding binding = MyLayoutBinding.bind(viewRoot);
+</code></pre><p>有些情况下，绑定类的类型无法事先得知，可以用 <code>DataBindingUtil</code> 来创建绑定：  </p>
+<pre><code>ViewDataBinding binding = DataBindingUtil.inflate(LayoutInflater, layoutId,
+parent, attachToParent);
+ViewDataBinding binding = DataBindingUtil.bindTo(viewRoot, layoutId);
+</code></pre><p>如果你结合 <code>Fragment</code> ， <code>ListView</code> 或者 <code>RecyclerView</code> Adapter 使用数据绑定，你应该使用绑定类的 <code>inflate()</code> 方法，或者 <code>DataBindingUtil</code> 类，示例如下：  </p>
+<pre><code>ListItemBinding binding = ListItemBinding.inflate(layoutInflater, viewGroup, false);
+// or
+ListItemBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.list_item, viewGroup, false);
+</code></pre><h2 id="带有-ID-的-View"><a href="#带有-ID-的-View" class="headerlink" title="带有 ID 的 View"></a>带有 ID 的 View</h2><p>数据绑定库在绑定类中为每个在 layout 中带有 ID 的 <code>View</code> 创建了 immutable 的字段。例如数据绑定库会创建名叫 <code>firstName</code> 和 <code>lastName</code> 的 <code>TextView</code> 字段，在生成的绑定类中可以看到他们是被 <code>final</code> 修饰的：</p>
+<pre><code>&lt;layout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+   &lt;data&gt;
+       &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+   &lt;/data&gt;
+   &lt;LinearLayout
+       android:orientation=&quot;vertical&quot;
+       android:layout_width=&quot;match_parent&quot;
+       android:layout_height=&quot;match_parent&quot;&gt;
+       &lt;TextView android:layout_width=&quot;wrap_content&quot;
+           android:layout_height=&quot;wrap_content&quot;
+           android:text=&quot;@{user.firstName}&quot;
+   android:id=&quot;@+id/firstName&quot;/&gt;
+       &lt;TextView android:layout_width=&quot;wrap_content&quot;
+           android:layout_height=&quot;wrap_content&quot;
+           android:text=&quot;@{user.lastName}&quot;
+  android:id=&quot;@+id/lastName&quot;/&gt;
+   &lt;/LinearLayout&gt;
+&lt;/layout&gt;
+</code></pre><p>数据绑定库在同一个类中提取了带有 ID 的 view 。这个机制可比给每个 <code>View</code> 都调用 <code>findViewById()</code> 快多了。<br>不使用数据绑定的话 ID 看起来没什么意义，但是仍然在有些情况需要在代码中调用。  </p>
+<h2 id="Variables-1"><a href="#Variables-1" class="headerlink" title="Variables"></a>Variables</h2><p>数据绑定库为在布局中声明了的变量提供了访问方法。在下面的示例中，为 <code>user</code> ， <code>image</code> 和 <code>note</code> 生成了对应的 getter 和 setter 方法：  </p>
+<pre><code>&lt;data&gt;
+   &lt;import type=&quot;android.graphics.drawable.Drawable&quot;/&gt;
+   &lt;variable name=&quot;user&quot; type=&quot;com.example.User&quot;/&gt;
+   &lt;variable name=&quot;image&quot; type=&quot;Drawable&quot;/&gt;
+   &lt;variable name=&quot;note&quot; type=&quot;String&quot;/&gt;
+&lt;/data&gt;
+</code></pre><h2 id="ViewStubs"><a href="#ViewStubs" class="headerlink" title="ViewStubs"></a>ViewStubs</h2><p>与正常的 <code>View</code> 对象不同， <code>ViewStub</code> 对象最开始是一个不可见的 view 。当他们被设为可见或者被明确调用了 <code>inflate()</code> 方法的时候，他们才将自己替换成即将被渲染的 view 。<br>因为 <code>ViewStub</code> 最终会在视图层次中消失，绑定对象中的 view 为了能被垃圾回收也需要销毁。因为 view 是 <code>final</code> 的， <code>ViewStubProxy</code> 对象会在生成的绑定类中替代 <code>ViewStub</code> ， 以此来在 <code>ViewStub</code> 存在的时候提供对 <code>ViewStub</code> 的访问，以及在 <code>ViewStub</code> inflate 之后提供对视图的访问。<br>当 inflate 另一个 layout 的时候，必须为新的布局建立绑定。因此， <code>ViewStubProxy</code> 必须监听 <code>ViewStub</code> 的 <code>OnInflateListener</code> ，并且在需要的时候建立绑定。由于在给定的时间内只能存在一个监听器， <code>ViewStubProxy</code> 允许你设置 <code>OnInflateListener</code> ， 并且在建立绑定之后得到回调。  </p>
 <h2 id="Immediate-Binding"><a href="#Immediate-Binding" class="headerlink" title="Immediate Binding"></a>Immediate Binding</h2><p>当变量或者 observable 对象发生改变的时候，绑定会计划在下一帧之前生效。但是有些情况下需要立即进行绑定。要强制执行绑定，直接调用 <code>executePendingBindings()</code> 方法。  </p>
-<h2 id="Advanced-Binding"><a href="#Advanced-Binding" class="headerlink" title="Advanced Binding"></a>Advanced Binding</h2><h3 id="Dynamic-Varaibles"><a href="#Dynamic-Varaibles" class="headerlink" title="Dynamic Varaibles"></a>Dynamic Varaibles</h3><p>有些情况下，指定的绑定类是未知的。举例来说， <code>RecyclerView.Adapter</code> 就不知到它该用何种绑定类（因为 Item Type 太多了），它得在调用 <code>onBindViewHolder()</code> 时分配绑定值。<br>在下面的例子里， <code>RecyclerView</code> 绑定的每一个的 layout 都对应着一个 item 变量。 <code>BindingHolder</code> 对象有一个 <code>getBinding()</code> 方法来返回基类 <code>ViewDataBinding</code> 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public void onBindViewHolder(BindingHolder holder, int position) &#123;</div><div class="line">  final T item = mItems.get(position);</div><div class="line">  holder.getBinding().setVariable(BR.item, item);</div><div class="line">  holder.getBinding().executePendingBindings();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="Background-Thread"><a href="#Background-Thread" class="headerlink" title="Background Thread"></a>Background Thread</h2><p>只要你的数据对象不是集合类，你就可以随意的在后台线程更改你的数据。数据绑定会在调用期间本地化每一个变量以此来避免并发问题。  </p>
+<h2 id="Advanced-Binding"><a href="#Advanced-Binding" class="headerlink" title="Advanced Binding"></a>Advanced Binding</h2><h3 id="Dynamic-Varaibles"><a href="#Dynamic-Varaibles" class="headerlink" title="Dynamic Varaibles"></a>Dynamic Varaibles</h3><p>有些情况下，指定的绑定类是未知的。举例来说， <code>RecyclerView.Adapter</code> 就不知到它该用何种绑定类（因为 Item Type 太多了），它得在调用 <code>onBindViewHolder()</code> 时分配绑定值。<br>在下面的例子里， <code>RecyclerView</code> 绑定的每一个的 layout 都对应着一个 item 变量。 <code>BindingHolder</code> 对象有一个 <code>getBinding()</code> 方法来返回基类 <code>ViewDataBinding</code> 。  </p>
+<pre><code>public void onBindViewHolder(BindingHolder holder, int position) {
+  final T item = mItems.get(position);
+  holder.getBinding().setVariable(BR.item, item);
+  holder.getBinding().executePendingBindings();
+}
+</code></pre><h2 id="Background-Thread"><a href="#Background-Thread" class="headerlink" title="Background Thread"></a>Background Thread</h2><p>只要你的数据对象不是集合类，你就可以随意的在后台线程更改你的数据。数据绑定会在调用期间本地化每一个变量以此来避免并发问题。  </p>
 <h2 id="Custom-binding-class-names"><a href="#Custom-binding-class-names" class="headerlink" title="Custom binding class names"></a>Custom binding class names</h2><p>默认情况下，绑定类的名称是根据 layout 文件的文件名来决定的。生成的绑定类位于当前 module 包名下的 databinding 包中。  </p>
-<p>绑定类可以通过 data 元素中的 class 参数来指定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// module.package.name.databinding.ContactItem</div><div class="line">&lt;data class=&quot;ContactItem&quot;&gt;</div><div class="line">    …</div><div class="line">&lt;/data&gt;</div><div class="line"></div><div class="line">// module.ppackage.name.ContactItem</div><div class="line">&lt;data class=&quot;.ContactItem&quot;&gt;</div><div class="line">    …</div><div class="line">&lt;/data&gt;</div><div class="line"></div><div class="line">// com.example.ContactItem</div><div class="line">&lt;data class=&quot;com.example.ContactItem&quot;&gt;</div><div class="line">    …</div><div class="line">&lt;/data&gt;</div></pre></td></tr></table></figure></p>
-<h1 id="Binding-adapters"><a href="#Binding-adapters" class="headerlink" title="Binding adapters"></a>Binding adapters</h1><p>Binding adapters 负责对想要适当的值进行框架层面的调用。例如通过调用 <code>setText()</code> 方法设置一个合适的值，或是调用 <code>setOnClickListener()</code> 设置监听。<br>数据绑定允许你通过使用 binding adapters 来指定方法进行赋值，提供自定义的绑定逻辑，指定返回对象的类型。  </p>
+<p>绑定类可以通过 data 元素中的 class 参数来指定：  </p>
+<pre><code>// module.package.name.databinding.ContactItem
+&lt;data class=&quot;ContactItem&quot;&gt;
+    …
+&lt;/data&gt;
+
+// module.ppackage.name.ContactItem
+&lt;data class=&quot;.ContactItem&quot;&gt;
+    …
+&lt;/data&gt;
+
+// com.example.ContactItem
+&lt;data class=&quot;com.example.ContactItem&quot;&gt;
+    …
+&lt;/data&gt;
+</code></pre><h1 id="Binding-adapters"><a href="#Binding-adapters" class="headerlink" title="Binding adapters"></a>Binding adapters</h1><p>Binding adapters 负责对想要适当的值进行框架层面的调用。例如通过调用 <code>setText()</code> 方法设置一个合适的值，或是调用 <code>setOnClickListener()</code> 设置监听。<br>数据绑定允许你通过使用 binding adapters 来指定方法进行赋值，提供自定义的绑定逻辑，指定返回对象的类型。  </p>
 <h2 id="Setting-attribute-values"><a href="#Setting-attribute-values" class="headerlink" title="Setting attribute values"></a>Setting attribute values</h2><p>无论绑定的值如何变化，生成的绑定类必须要借助绑定表达式对 view 调用一个 setter 方法。你可以让数据绑定库自定决定调用何种方法，或是指定方法，再或是提供逻辑来指定方法。  </p>
-<h3 id="Automatic-method-selection"><a href="#Automatic-method-selection" class="headerlink" title="Automatic method selection"></a>Automatic method selection</h3><p>举个例子，如果 view 的一个参数叫做 <code>example</code> ， 绑定库会自动去寻找能接受对应类型参数的 setExample(arg) 方法。命名空间不会被使用到，只有参数名和类型会被用来查找对应的方法。<br>例如， <code>android:text=&quot;@{user.name}&quot;</code> 表达式中，数据绑定库会去查找 <code>setText(arg)</code> 方法，如果 <code>user.getName()</code> 的返回类型是 <code>String</code> ，数据绑定库就会去查找 <code>setText(String arg)</code> 方法，如果 <code>user.getName()</code> 的返回类型是 <code>int</code> ，数据绑定库就回去查找 <code>setText(int arg)</code> 方法。表达式的返回值类型必须相符，必要时可以使用 cast 转换。<br>在没有对应参数的情况下，数据绑定也可以正常工作。你甚至可以通过创建对应的 setter 函数来增加 xml 的参数。例如， Support 包下的 <code>DrawerLayout</code> 并没有什么特别的 xml 参数，但是他有好多 setter 函数。数据绑定库就会自动根据 <code>app:scrimColor</code> 和 <code>app:scrimColor</code> 参数来调用 <code>setScrimColor(int)</code> 和 <code>setDrawerListener(DrawerListener)</code> 方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;android.support.v4.widget.DrawerLayout</div><div class="line">    android:layout_width=&quot;wrap_content&quot;</div><div class="line">    android:layout_height=&quot;wrap_content&quot;</div><div class="line">    app:scrimColor=&quot;@&#123;@color/scrim&#125;&quot;</div><div class="line">    app:drawerListener=&quot;@&#123;fragment.drawerListener&#125;&quot;&gt;</div></pre></td></tr></table></figure></p>
-<h3 id="Specify-a-custom-method-name"><a href="#Specify-a-custom-method-name" class="headerlink" title="Specify a custom method name"></a>Specify a custom method name</h3><p>有些参数和它对应的 setter 方法名字并不匹配。在这种情况下，参数和对应的 setter 函数可以通过 <code>BindingMethods</code> 注解关联。注解用来修饰类，一个类可以有多个注解，每个注解声明了一个参数和 setter 的关联。例如 <code>android:tint</code> 对应的是 <code>setImageTintList(ColorStateList)</code> 而不是 <code>setTint()</code> 方法，这是我们就可以这么干：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@BindingMethods(&#123;</div><div class="line">       @BindingMethod(type = &quot;android.widget.ImageView&quot;,</div><div class="line">                      attribute = &quot;android:tint&quot;,</div><div class="line">                      method = &quot;setImageTintList&quot;),</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>大多数情况下， Android 提供的类都不需要做重命名的映射，他们都进行了自动的方法匹配。  </p>
-<h3 id="Provide-custom-logic"><a href="#Provide-custom-logic" class="headerlink" title="Provide custom logic"></a>Provide custom logic</h3><p>有些参数需要自定义的逻辑。例如， <code>android:paddingLeft</code> 没有对应的 <code>setPaddingLeft(left)</code> 方法，但是却提供了 <code>setPadding(left, top, right, bottom)</code> 方法。一个带有 <code>BindingAdapter</code> 注解的静态方法就可以让你完成自定义参数逻辑：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@BindingAdapter(&quot;android:paddingLeft&quot;)</div><div class="line">public static void setPaddingLeft(View view, int padding) &#123;</div><div class="line">  view.setPadding(padding,</div><div class="line">                  view.getPaddingTop(),</div><div class="line">                  view.getPaddingRight(),</div><div class="line">                  view.getPaddingBottom());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Android 提供的类也已经创建了相应的 <code>BindingAdapter</code> 注解。<br>上述代码参数类型很重要，第一个参数的类型决定了要在哪种类上关联参数，第二个参数的类型对应着表达式里面的类型。<br>BindindAdapters 可以用来做各种类型的自定义。例如，你可以在工作线程调用自定义的加载程序来加载图像。<br>当存在冲突的时候，你自定义的 adapter 会覆盖 Android 框架的 adapter 。<br>你也可以用 adapter 同时接收多个参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@BindingAdapter(&#123;&quot;imageUrl&quot;, &quot;error&quot;&#125;)</div><div class="line">public static void loadImage(ImageView view, String url, Drawable error) &#123;</div><div class="line">  Picasso.with(view.getContext()).load(url).error(error).into(view);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>相应地，你可以这样使用你定义的参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;ImageView app:imageUrl=&quot;@&#123;venue.imageUrl&#125;&quot; app:error=&quot;@&#123;@drawable/venueError&#125;&quot; /&gt;</div></pre></td></tr></table></figure></p>
-<p>上面的例子中，只有当两个参数都被设置了的时候， adapter 才会生效，如果你想在仅有一个参数的情况下也使用 adapter ， 你可以吧注解的参数 <code>requireAll</code> 设置成 <code>false</code> ：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">@BindingAdapter(value=&#123;&quot;imageUrl&quot;, &quot;placeholder&quot;&#125;, requireAll=false)</div><div class="line">public static void setImageUrl(ImageView imageView, String url, Drawable placeHolder) &#123;</div><div class="line">  if (url == null) &#123;</div><div class="line">    imageView.setImageDrawable(placeholder);</div><div class="line">  &#125; else &#123;</div><div class="line">    MyImageLoader.loadInto(imageView, url, placeholder);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>Bindging adapter 方法还可以接收旧值作为参数。接收新旧参数的方法应该先声明所有的旧参数然后在声明新的参数，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@BindingAdapter(&quot;android:paddingLeft&quot;)</div><div class="line">public static void setPaddingLeft(View view, int oldPadding, int newPadding) &#123;</div><div class="line">  if (oldPadding != newPadding) &#123;</div><div class="line">      view.setPadding(newPadding,</div><div class="line">                      view.getPaddingTop(),</div><div class="line">                      view.getPaddingRight(),</div><div class="line">                      view.getPaddingBottom());</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>事件处理程序只能与只有一个抽象方法的接口或抽象类一起使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// View.OnLayoutChangeListener 接口只有一个方法。如果借口或者抽象类有多个方法的话，数据绑定库就不知道该调用哪个方法了。</div><div class="line">@BindingAdapter(&quot;android:onLayoutChange&quot;)</div><div class="line">public static void setOnLayoutChangeListener(View view, View.OnLayoutChangeListener oldValue,</div><div class="line">       View.OnLayoutChangeListener newValue) &#123;</div><div class="line">  if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) &#123;</div><div class="line">    if (oldValue != null) &#123;</div><div class="line">      view.removeOnLayoutChangeListener(oldValue);</div><div class="line">    &#125;</div><div class="line">    if (newValue != null) &#123;</div><div class="line">      view.addOnLayoutChangeListener(newValue);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在 layout 中这样使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;View android:onLayoutChange=&quot;@&#123;() -&gt; handler.layoutChanged()&#125;&quot;/&gt;</div></pre></td></tr></table></figure></p>
-<p>当监听类有多个方法时，只能将它分成多个接口。例如， <code>View.OnAttachStateChangeListener</code> 中有两个方法：<code>onViewAttachedToWindow(View)</code> 和 <code>onViewDetachedFromWindow(View)</code> ，你必须创建两个接口来然后使用 BindingAdapter 创建两个参数，然后对应两个监听器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@TargetApi(VERSION_CODES.HONEYCOMB_MR1)</div><div class="line">public interface OnViewDetachedFromWindow &#123;</div><div class="line">  void onViewDetachedFromWindow(View v);</div><div class="line">&#125;</div><div class="line"></div><div class="line">@TargetApi(VERSION_CODES.HONEYCOMB_MR1)</div><div class="line">public interface OnViewAttachedToWindow &#123;</div><div class="line">  void onViewAttachedToWindow(View v);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>因为改变一个监听器会影响另一个，你得需要一个能同时管理两个监听的 adapter 。你可以设置 BindingAdapter 注解的 <code>requireAll</code> 参数为 <code>false</code> ， 这样不用每次都得指定指定两个监听了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">@BindingAdapter(&#123;&quot;android:onViewDetachedFromWindow&quot;, &quot;android:onViewAttachedToWindow&quot;&#125;, requireAll=false)</div><div class="line">public static void setListener(View view, OnViewDetachedFromWindow detach, OnViewAttachedToWindow attach) &#123;</div><div class="line">  if (VERSION.SDK_INT &gt;= VERSION_CODES.HONEYCOMB_MR1) &#123;</div><div class="line">    OnAttachStateChangeListener newListener;</div><div class="line">    if (detach == null &amp;&amp; attach == null) &#123;</div><div class="line">      // 如果 attach 监听和 detach 监听都为空的话，那就不需要给 view 设置 OnAttachStateChangeListener 了</div><div class="line">      newListener = null;</div><div class="line">    &#125; else &#123;</div><div class="line">      // 设置监听</div><div class="line">      newListener = new OnAttachStateChangeListener() &#123;</div><div class="line">        @Override</div><div class="line">        public void onViewAttachedToWindow(View v) &#123;</div><div class="line">          if (attach != null) &#123;</div><div class="line">            attach.onViewAttachedToWindow(v);</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">        @Override</div><div class="line">        public void onViewDetachedFromWindow(View v) &#123;</div><div class="line">          if (detach != null) &#123;</div><div class="line">            detach.onViewDetachedFromWindow(v);</div><div class="line">          &#125;</div><div class="line">        &#125;</div><div class="line">      &#125;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 获取旧的 OnAttachStateChangeListener</div><div class="line">    OnAttachStateChangeListener oldListener = ListenerUtil.trackListener(view, newListener,</div><div class="line">                                              R.id.onAttachStateChangeListener);</div><div class="line">    // 移除旧的 OnAttachStateChangeListener                                          </div><div class="line">    if (oldListener != null) &#123;</div><div class="line">      view.removeOnAttachStateChangeListener(oldListener);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // 设置新的 OnAttachStateChangeListener</div><div class="line">    if (newListener != null) &#123;</div><div class="line">      view.addOnAttachStateChangeListener(newListener);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">```    </div><div class="line">上述示例要比正常的稍微复杂一些，因为 `View` 类用的是 `addOnAttachStateChangeListener()` 和 `removeOnAttachStateChangeListener()` 而不是 `onAttachStateChangeListener` 的 setter 方法。 ``android.databinding.adapters.ListenerUtil`` 这个类记录了以往了监听，以便在需要的时候用来移除。  </div><div class="line">通过对 `OnViewDetachedFromWindow` 和 `OnViewAttachedToWindow` 设置 `@TargetApi(VERSION_CODES.HONEYCOMB_MR1)` 注解，绑定类生成器就知道只有在 API 12 以上才会生成相应的监听器，这个机制与 `addOnAttachStateChangeListener()` 相同。  </div><div class="line"></div><div class="line">## Object conversion</div><div class="line">### Automatic object conversion</div><div class="line">当绑定表达式返回一个 `Object` 时，由绑定库来调用相应的方法设置参数。 `Object` 对象会被根据方法的参数类型自动转型。这个行为在配合使用 `ObservableMap` 的时候尤其便利：</div></pre></td></tr></table></figure></p>
-<p><textview android:text="@{userMap["lastName"]}" android:layout_width="wrap_content" android:layout_height="wrap_content"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">在绑定表达式中使用的 `userMap` 对象会返回一个值，会被自动转为 `android:text` 所对应的 `setText(CharSequence)` 函数的的参数类型。如果参数类型不明确的话，必须要在表达式中手动转型。  </div><div class="line"></div><div class="line">### Custom conversions</div><div class="line">在有些情况下，对于某些特定的类型必须要进行手动转型。例如， `android:background` 参数期待的是一个 `Drawable` 参数，但是 `color` 的值却是一个数字。下面的例子就展示了这种情况：</div></pre></td></tr></table></figure></textview></p>
-<p><view android:background="@{isError ? @color/red : @color/white}" android:layout_width="wrap_content" android:layout_height="wrap_content"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">当期待的是 `Drawable` 但是提供的却是 `int` 时， `int` 就需要被转为其颜色对应的 `ColorDrawable` 。转换可以通过给静态方法声明 `BindingConversion` 注解：</div></pre></td></tr></table></figure></view></p>
-<p>@BindingConversion<br>public static ColorDrawable convertColorToDrawable(int color) {<br>  return new ColorDrawable(color);<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">但是，表达式里面提供的类型必须是一致的，不可以在同一个表达式里面返回不同的类型：</div></pre></td></tr></table></figure></p>
-<p><view android:background="@{isError ? @drawable/error : @color/white}" 不可以的="" android:layout_width="wrap_content" android:layout_height="wrap_content"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"># Bind layout views to Architecture Components</div><div class="line">AndroidX 库中包含 `Architecture Components` ， 你可以用来设计健壮、可测试可维护的 APP 。数据绑定库可以和架构组件库无缝协作，进一步简化 UI 的开发。 APP 中的布局可以绑定架构组件的数据，可以帮助您管理 UI 控制器的生命周期和通知数据中的更改。    </div><div class="line"></div><div class="line">## Use LiveData to notify the UI about data changes</div><div class="line">你可以使用 `LiveData` 对象作为数据绑定的数据源，来通知 UI 数据发生了更改。详细信息见 `LiveData` 的文档。  </div><div class="line">不像实现了 `Observable` 的对象， `LiveData` 知道订阅数据变更通知的观察者的生命周期。这带来了许多好处，在 [The advantages of using LiveData](https://developer.android.com/topic/libraries/architecture/livedata.html#the_advantages_of_using_livedata) 中有详细说明。在 Android Studio 3.1  以及更高版本中，你可以用 `LiveData` 来替换代码中的 observable fields 。  </div><div class="line">要在你的绑定类中使用 `LiveData` ，你需要指定一个生命周期所有者来定义 `LiveData` 对象的范围。下面的例子展示了在绑定类被初始化之后指定了 activity 作为生命周期所有者：</div></pre></td></tr></table></figure></view></p>
-<p>class ViewModelActivity extends AppCompatActivity {<br>    @Override<br>    protected void onCreate(Bundle savedInstanceState) {<br>        // Inflate view and obtain an instance of the binding class.<br>        UserBinding binding = DataBindingUtil.setContentView(this, R.layout.user);</p>
-<pre><code>    // Specify the current activity as the lifecycle owner.
-    binding.setLifecycleOwner(this);
+<h3 id="Automatic-method-selection"><a href="#Automatic-method-selection" class="headerlink" title="Automatic method selection"></a>Automatic method selection</h3><p>举个例子，如果 view 的一个参数叫做 <code>example</code> ， 绑定库会自动去寻找能接受对应类型参数的 setExample(arg) 方法。命名空间不会被使用到，只有参数名和类型会被用来查找对应的方法。<br>例如， <code>android:text=&quot;@{user.name}&quot;</code> 表达式中，数据绑定库会去查找 <code>setText(arg)</code> 方法，如果 <code>user.getName()</code> 的返回类型是 <code>String</code> ，数据绑定库就会去查找 <code>setText(String arg)</code> 方法，如果 <code>user.getName()</code> 的返回类型是 <code>int</code> ，数据绑定库就回去查找 <code>setText(int arg)</code> 方法。表达式的返回值类型必须相符，必要时可以使用 cast 转换。<br>在没有对应参数的情况下，数据绑定也可以正常工作。你甚至可以通过创建对应的 setter 函数来增加 xml 的参数。例如， Support 包下的 <code>DrawerLayout</code> 并没有什么特别的 xml 参数，但是他有好多 setter 函数。数据绑定库就会自动根据 <code>app:scrimColor</code> 和 <code>app:scrimColor</code> 参数来调用 <code>setScrimColor(int)</code> 和 <code>setDrawerListener(DrawerListener)</code> 方法：  </p>
+<pre><code>&lt;android.support.v4.widget.DrawerLayout
+    android:layout_width=&quot;wrap_content&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    app:scrimColor=&quot;@{@color/scrim}&quot;
+    app:drawerListener=&quot;@{fragment.drawerListener}&quot;&gt;
+</code></pre><h3 id="Specify-a-custom-method-name"><a href="#Specify-a-custom-method-name" class="headerlink" title="Specify a custom method name"></a>Specify a custom method name</h3><p>有些参数和它对应的 setter 方法名字并不匹配。在这种情况下，参数和对应的 setter 函数可以通过 <code>BindingMethods</code> 注解关联。注解用来修饰类，一个类可以有多个注解，每个注解声明了一个参数和 setter 的关联。例如 <code>android:tint</code> 对应的是 <code>setImageTintList(ColorStateList)</code> 而不是 <code>setTint()</code> 方法，这是我们就可以这么干：  </p>
+<pre><code>@BindingMethods({
+       @BindingMethod(type = &quot;android.widget.ImageView&quot;,
+                      attribute = &quot;android:tint&quot;,
+                      method = &quot;setImageTintList&quot;),
+})
+</code></pre><p>大多数情况下， Android 提供的类都不需要做重命名的映射，他们都进行了自动的方法匹配。  </p>
+<h3 id="Provide-custom-logic"><a href="#Provide-custom-logic" class="headerlink" title="Provide custom logic"></a>Provide custom logic</h3><p>有些参数需要自定义的逻辑。例如， <code>android:paddingLeft</code> 没有对应的 <code>setPaddingLeft(left)</code> 方法，但是却提供了 <code>setPadding(left, top, right, bottom)</code> 方法。一个带有 <code>BindingAdapter</code> 注解的静态方法就可以让你完成自定义参数逻辑：  </p>
+<pre><code>@BindingAdapter(&quot;android:paddingLeft&quot;)
+public static void setPaddingLeft(View view, int padding) {
+  view.setPadding(padding,
+                  view.getPaddingTop(),
+                  view.getPaddingRight(),
+                  view.getPaddingBottom());
 }
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">你可以使用 `ViewModel` 组件，来将数据绑定到 layout 上。在 `ViewModel` 组件中，你可以使用 `LiveData` 来转换并且处理多个数据源。示例如下：</div></pre></td></tr></table></figure></p>
-<p>class ScheduleViewModel extends ViewModel {<br>    LiveData username;</p>
-<pre><code>public ScheduleViewModel() {
-    String result = Repository.userName;
-    userName = Transformations.map(result, result -&gt; result.value);
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## Use ViewModel to manage UI-related data</div><div class="line">数据绑定库可以和 `ViewModel` 组件无缝衔接， `ViewModel` 会将数据暴露给 layout 并对数据变化做出响应。结合 `ViewModel` 使用数据绑定可以将你的布局逻辑移至 `ViewModel` 中，这样可以更容易测试。数据绑定库负责在相应的时候绑定和解绑数据源。剩下的大部分工作都在于确保你暴露的数据的正确性。  </div><div class="line">要将 `ViewModel` 组件与数据绑定库一起使用，必须实例化继承了 `ViewModel` 的组件，再获取绑定类的实例，并将 `ViewModel` 示例赋值给绑定类相应的字段：</div></pre></td></tr></table></figure></p>
-<p>class ViewModelActivity extends AppCompatActivity {<br>    @Override<br>    protected void onCreate(Bundle savedInstanceState) {<br>        // Obtain the ViewModel component.<br>        UserModel userModel = ViewModelProviders.of(getActivity())<br>                                                  .get(UserModel.class);</p>
-<pre><code>    // Inflate view and obtain an instance of the binding class.
-    UserBinding binding = DataBindingUtil.setContentView(this, R.layout.user);
-
-    // Assign the component to a property in the binding class.
-    binding.viewmodel = userModel;
+</code></pre><p>Android 提供的类也已经创建了相应的 <code>BindingAdapter</code> 注解。<br>上述代码参数类型很重要，第一个参数的类型决定了要在哪种类上关联参数，第二个参数的类型对应着表达式里面的类型。<br>BindindAdapters 可以用来做各种类型的自定义。例如，你可以在工作线程调用自定义的加载程序来加载图像。<br>当存在冲突的时候，你自定义的 adapter 会覆盖 Android 框架的 adapter 。<br>你也可以用 adapter 同时接收多个参数：  </p>
+<pre><code>@BindingAdapter({&quot;imageUrl&quot;, &quot;error&quot;})
+public static void loadImage(ImageView view, String url, Drawable error) {
+  Picasso.with(view.getContext()).load(url).error(error).into(view);
 }
-</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">在 layout 中，使用绑定表达式将 `ViewModel` 中的字段和方法用在对应的 view 上：</div></pre></td></tr></table></figure></p>
-<p><checkbox android:id="@+id/rememberMeCheckBox" android:checked="@{viewmodel.rememberMe}" android:oncheckedchanged="@{() -> viewmodel.rememberMeChanged()}"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## Use an Observable ViewModel for more control over binding adapters</div><div class="line">你可以使用 `ViewModel` 实现 `Observable` 接口来同时 UI 数据变更，类似于使用 `LivaData。`  </div><div class="line">在某些情况下，你可能会更偏向于使用 `ViewModel` 组件实现 `Observable` 接口，而不是直接使用 `LiveData` 对象，即使这意味着你得舍弃 `LiveData` 的生命周期管理功能。使用 `ViewModel` 实现 `Observable` 借口可以给予你 `Binding Adapter` 的更多控制权。下面的例子就能在数据变化的时候更好的控制通知，还允许你自定义方法在双向绑定中自定义参数的值。  </div><div class="line">要实现一个可观察的 `ViewModel` ，你先要继承 `ViewModel` 组件并实现 `Observable` 接口。当观察者使用  `addOnPropertyChangedCallback()` 和 `removeOnPropertyChangedCallback()` 订阅或者取消订阅时，你可以提供自定义逻辑。你还可以提供在 `notifyPropertyChanged()` 方法中属性更改时的自定义逻辑。示例如下：</div></pre></td></tr></table></figure></checkbox></p>
-<p>/**</p>
-<ul>
-<li>A ViewModel that is also an Observable,</li>
-<li><p>to be used with the Data Binding Library.<br>*/<br>class ObservableViewModel extends ViewModel implements Observable {<br> private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();</p>
-<p> @Override<br> protected void addOnPropertyChangedCallback(</p>
-<pre><code>    Observable.OnPropertyChangedCallback callback) {
-callbacks.add(callback);
-</code></pre><p> }</p>
-<p> @Override<br> protected void removeOnPropertyChangedCallback(</p>
-<pre><code>    Observable.OnPropertyChangedCallback callback) {
-callbacks.remove(callback);
-</code></pre><p> }</p>
-<p> /**</p>
-<ul>
-<li><p>Notifies observers that all properties of this instance have changed.<br>*/<br>void notifyChange() {<br> callbacks.notifyCallbacks(this, 0, null);<br>}</p>
-<p>/**</p>
-</li>
-<li>Notifies observers that a specific property has changed. The getter for the</li>
-<li>property that changes should be marked with the @Bindable annotation to</li>
-<li>generate a field in the BR class to be used as the fieldId parameter.<br>*</li>
-<li>@param fieldId The generated BR id for the Bindable field.<br>*/<br>void notifyPropertyChanged(int fieldId) {<br> callbacks.notifyCallbacks(this, fieldId, null);<br>}<br>}<br>```</li>
-</ul>
-</li>
-</ul>
+</code></pre><p>相应地，你可以这样使用你定义的参数：  </p>
+<pre><code>&lt;ImageView app:imageUrl=&quot;@{venue.imageUrl}&quot; app:error=&quot;@{@drawable/venueError}&quot; /&gt;
+</code></pre><p>上面的例子中，只有当两个参数都被设置了的时候， adapter 才会生效，如果你想在仅有一个参数的情况下也使用 adapter ， 你可以吧注解的参数 <code>requireAll</code> 设置成 <code>false</code> ：  </p>
+<pre><code>@BindingAdapter(value={&quot;imageUrl&quot;, &quot;placeholder&quot;}, requireAll=false)
+public static void setImageUrl(ImageView imageView, String url, Drawable placeHolder) {
+  if (url == null) {
+    imageView.setImageDrawable(placeholder);
+  } else {
+    MyImageLoader.loadInto(imageView, url, placeholder);
+  }
+}
+</code></pre><p>Bindging adapter 方法还可以接收旧值作为参数。接收新旧参数的方法应该先声明所有的旧参数然后在声明新的参数，示例如下：  </p>
+<pre><code>@BindingAdapter(&quot;android:paddingLeft&quot;)
+public static void setPaddingLeft(View view, int oldPadding, int newPadding) {
+  if (oldPadding != newPadding) {
+      view.setPadding(newPadding,
+                      view.getPaddingTop(),
+                      view.getPaddingRight(),
+                      view.getPaddingBottom());
+   }
+}
+</code></pre><p>事件处理程序只能与只有一个抽象方法的接口或抽象类一起使用：  </p>
+<pre><code>// View.OnLayoutChangeListener 接口只有一个方法。如果借口或者抽象类有多个方法的话，数据绑定库就不知道该调用哪个方法了。
+@BindingAdapter(&quot;android:onLayoutChange&quot;)
+public static void setOnLayoutChangeListener(View view, View.OnLayoutChangeListener oldValue,
+       View.OnLayoutChangeListener newValue) {
+  if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
+    if (oldValue != null) {
+      view.removeOnLayoutChangeListener(oldValue);
+    }
+    if (newValue != null) {
+      view.addOnLayoutChangeListener(newValue);
+    }
+  }
+}
+</code></pre><p>在 layout 中这样使用：  </p>
+<pre><code>&lt;View android:onLayoutChange=&quot;@{() -&gt; handler.layoutChanged()}&quot;/&gt;
+</code></pre><p>当监听类有多个方法时，只能将它分成多个接口。例如， <code>View.OnAttachStateChangeListener</code> 中有两个方法：<code>onViewAttachedToWindow(View)</code> 和 <code>onViewDetachedFromWindow(View)</code> ，你必须创建两个接口来然后使用 BindingAdapter 创建两个参数，然后对应两个监听器：  </p>
+<pre><code>@TargetApi(VERSION_CODES.HONEYCOMB_MR1)
+public interface OnViewDetachedFromWindow {
+  void onViewDetachedFromWindow(View v);
+}
 
+@TargetApi(VERSION_CODES.HONEYCOMB_MR1)
+public interface OnViewAttachedToWindow {
+  void onViewAttachedToWindow(View v);
+}
+</code></pre><p>因为改变一个监听器会影响另一个，你得需要一个能同时管理两个监听的 adapter 。你可以设置 BindingAdapter 注解的 <code>requireAll</code> 参数为 <code>false</code> ， 这样不用每次都得指定指定两个监听了：  </p>
+<pre><code>@BindingAdapter({&quot;android:onViewDetachedFromWindow&quot;, &quot;android:onViewAttachedToWindow&quot;},     requireAll=false)
+public static void setListener(View view, OnViewDetachedFromWindow detach,  OnViewAttachedToWindow attach) {
+  if (VERSION.SDK_INT &gt;= VERSION_CODES.HONEYCOMB_MR1) {
+    OnAttachStateChangeListener newListener;
+    if (detach == null &amp;&amp; attach == null) {
+      // 如果 attach 监听和 detach 监听都为空的话，那就不需要给 view 设置   OnAttachStateChangeListener 了
+      newListener = null;
+    } else {
+      // 设置监听
+      newListener = new OnAttachStateChangeListener() {
+        @Override
+        public void onViewAttachedToWindow(View v) {
+          if (attach != null) {
+            attach.onViewAttachedToWindow(v);
+          }
+        }
+        @Override
+        public void onViewDetachedFromWindow(View v) {
+          if (detach != null) {
+            detach.onViewDetachedFromWindow(v);
+          }
+        }
+      };
+    }
+
+    // 获取旧的 OnAttachStateChangeListener
+    OnAttachStateChangeListener oldListener = ListenerUtil.trackListener(view, newListener,
+                                              R.id.onAttachStateChangeListener);
+    // 移除旧的 OnAttachStateChangeListener                                          
+    if (oldListener != null) {
+      view.removeOnAttachStateChangeListener(oldListener);
+    }
+
+    // 设置新的 OnAttachStateChangeListener
+    if (newListener != null) {
+      view.addOnAttachStateChangeListener(newListener);
+    }
+  }
+}
+</code></pre><p>上述示例要比正常的稍微复杂一些，因为 <code>View</code> 类用的是 <code>addOnAttachStateChangeListener()</code> 和 <code>removeOnAttachStateChangeListener()</code> 而不是 <code>onAttachStateChangeListener</code> 的 setter 方法。 <code>android.databinding.adapters.ListenerUtil</code> 这个类记录了以往了监听，以便在需要的时候用来移除。<br>通过对 <code>OnViewDetachedFromWindow</code> 和 <code>OnViewAttachedToWindow</code> 设置 <code>@TargetApi(VERSION_CODES.HONEYCOMB_MR1)</code> 注解，绑定类生成器就知道只有在 API 12 以上才会生成相应的监听器，这个机制与 <code>addOnAttachStateChangeListener()</code> 相同。  </p>
+<h2 id="Object-conversion"><a href="#Object-conversion" class="headerlink" title="Object conversion"></a>Object conversion</h2><h3 id="Automatic-object-conversion"><a href="#Automatic-object-conversion" class="headerlink" title="Automatic object conversion"></a>Automatic object conversion</h3><p>当绑定表达式返回一个 <code>Object</code> 时，由绑定库来调用相应的方法设置参数。 <code>Object</code> 对象会被根据方法的参数类型自动转型。这个行为在配合使用 <code>ObservableMap</code> 的时候尤其便利：  </p>
+<pre><code>&lt;TextView
+   android:text=&apos;@{userMap[&quot;lastName&quot;]}&apos;
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot; /&gt;
+</code></pre><p>在绑定表达式中使用的 <code>userMap</code> 对象会返回一个值，会被自动转为 <code>android:text</code> 所对应的 <code>setText(CharSequence)</code> 函数的的参数类型。如果参数类型不明确的话，必须要在表达式中手动转型。  </p>
+<h3 id="Custom-conversions"><a href="#Custom-conversions" class="headerlink" title="Custom conversions"></a>Custom conversions</h3><p>在有些情况下，对于某些特定的类型必须要进行手动转型。例如， <code>android:background</code> 参数期待的是一个 <code>Drawable</code> 参数，但是 <code>color</code> 的值却是一个数字。下面的例子就展示了这种情况：  </p>
+<pre><code>&lt;View
+   android:background=&quot;@{isError ? @color/red : @color/white}&quot;
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><p>当期待的是 <code>Drawable</code> 但是提供的却是 <code>int</code> 时， <code>int</code> 就需要被转为其颜色对应的 <code>ColorDrawable</code> 。转换可以通过给静态方法声明 <code>BindingConversion</code> 注解：  </p>
+<pre><code>@BindingConversion
+public static ColorDrawable convertColorToDrawable(int color) {
+  return new ColorDrawable(color);
+}
+</code></pre><p>但是，表达式里面提供的类型必须是一致的，不可以在同一个表达式里面返回不同的类型：  </p>
+<pre><code>&lt;View
+   android:background=&quot;@{isError ? @drawable/error : @color/white}&quot; // 不可以的
+   android:layout_width=&quot;wrap_content&quot;
+   android:layout_height=&quot;wrap_content&quot;/&gt;
+</code></pre><h1 id="Bind-layout-views-to-Architecture-Components"><a href="#Bind-layout-views-to-Architecture-Components" class="headerlink" title="Bind layout views to Architecture Components"></a>Bind layout views to Architecture Components</h1><p>AndroidX 库中包含 <code>Architecture Components</code> ， 你可以用来设计健壮、可测试可维护的 APP 。数据绑定库可以和架构组件库无缝协作，进一步简化 UI 的开发。 APP 中的布局可以绑定架构组件的数据，可以帮助您管理 UI 控制器的生命周期和通知数据中的更改。    </p>
+<h2 id="Use-LiveData-to-notify-the-UI-about-data-changes"><a href="#Use-LiveData-to-notify-the-UI-about-data-changes" class="headerlink" title="Use LiveData to notify the UI about data changes"></a>Use LiveData to notify the UI about data changes</h2><p>你可以使用 <code>LiveData</code> 对象作为数据绑定的数据源，来通知 UI 数据发生了更改。详细信息见 <code>LiveData</code> 的文档。<br>不像实现了 <code>Observable</code> 的对象， <code>LiveData</code> 知道订阅数据变更通知的观察者的生命周期。这带来了许多好处，在 <a href="https://developer.android.com/topic/libraries/architecture/livedata.html#the_advantages_of_using_livedata" target="_blank" rel="external">The advantages of using LiveData</a> 中有详细说明。在 Android Studio 3.1  以及更高版本中，你可以用 <code>LiveData</code> 来替换代码中的 observable fields 。<br>要在你的绑定类中使用 <code>LiveData</code> ，你需要指定一个生命周期所有者来定义 <code>LiveData</code> 对象的范围。下面的例子展示了在绑定类被初始化之后指定了 activity 作为生命周期所有者：  </p>
+<pre><code>class ViewModelActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Inflate view and obtain an instance of the binding class.
+        UserBinding binding = DataBindingUtil.setContentView(this, R.layout.user);
+
+        // Specify the current activity as the lifecycle owner.
+        binding.setLifecycleOwner(this);
+    }
+}
+</code></pre><p>你可以使用 <code>ViewModel</code> 组件，来将数据绑定到 layout 上。在 <code>ViewModel</code> 组件中，你可以使用 <code>LiveData</code> 来转换并且处理多个数据源。示例如下：  </p>
+<pre><code>class ScheduleViewModel extends ViewModel {
+    LiveData username;
+
+    public ScheduleViewModel() {
+        String result = Repository.userName;
+        userName = Transformations.map(result, result -&gt; result.value);
+}
+</code></pre><h2 id="Use-ViewModel-to-manage-UI-related-data"><a href="#Use-ViewModel-to-manage-UI-related-data" class="headerlink" title="Use ViewModel to manage UI-related data"></a>Use ViewModel to manage UI-related data</h2><p>数据绑定库可以和 <code>ViewModel</code> 组件无缝衔接， <code>ViewModel</code> 会将数据暴露给 layout 并对数据变化做出响应。结合 <code>ViewModel</code> 使用数据绑定可以将你的布局逻辑移至 <code>ViewModel</code> 中，这样可以更容易测试。数据绑定库负责在相应的时候绑定和解绑数据源。剩下的大部分工作都在于确保你暴露的数据的正确性。<br>要将 <code>ViewModel</code> 组件与数据绑定库一起使用，必须实例化继承了 <code>ViewModel</code> 的组件，再获取绑定类的实例，并将 <code>ViewModel</code> 示例赋值给绑定类相应的字段：  </p>
+<pre><code>class ViewModelActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Obtain the ViewModel component.
+        UserModel userModel = ViewModelProviders.of(getActivity())
+                                                  .get(UserModel.class);
+
+        // Inflate view and obtain an instance of the binding class.
+        UserBinding binding = DataBindingUtil.setContentView(this, R.layout.user);
+
+        // Assign the component to a property in the binding class.
+        binding.viewmodel = userModel;
+    }
+}
+</code></pre><p>在 layout 中，使用绑定表达式将 <code>ViewModel</code> 中的字段和方法用在对应的 view 上：  </p>
+<pre><code>&lt;CheckBox
+    android:id=&quot;@+id/rememberMeCheckBox&quot;
+    android:checked=&quot;@{viewmodel.rememberMe}&quot;
+    android:onCheckedChanged=&quot;@{() -&gt; viewmodel.rememberMeChanged()}&quot; /&gt;
+</code></pre><h2 id="Use-an-Observable-ViewModel-for-more-control-over-binding-adapters"><a href="#Use-an-Observable-ViewModel-for-more-control-over-binding-adapters" class="headerlink" title="Use an Observable ViewModel for more control over binding adapters"></a>Use an Observable ViewModel for more control over binding adapters</h2><p>你可以使用 <code>ViewModel</code> 实现 <code>Observable</code> 接口来同时 UI 数据变更，类似于使用 <code>LivaData。</code><br>在某些情况下，你可能会更偏向于使用 <code>ViewModel</code> 组件实现 <code>Observable</code> 接口，而不是直接使用 <code>LiveData</code> 对象，即使这意味着你得舍弃 <code>LiveData</code> 的生命周期管理功能。使用 <code>ViewModel</code> 实现 <code>Observable</code> 借口可以给予你 <code>Binding Adapter</code> 的更多控制权。下面的例子就能在数据变化的时候更好的控制通知，还允许你自定义方法在双向绑定中自定义参数的值。<br>要实现一个可观察的 <code>ViewModel</code> ，你先要继承 <code>ViewModel</code> 组件并实现 <code>Observable</code> 接口。当观察者使用  <code>addOnPropertyChangedCallback()</code> 和 <code>removeOnPropertyChangedCallback()</code> 订阅或者取消订阅时，你可以提供自定义逻辑。你还可以提供在 <code>notifyPropertyChanged()</code> 方法中属性更改时的自定义逻辑。示例如下：  </p>
+<pre><code>/**
+ * A ViewModel that is also an Observable,
+ * to be used with the Data Binding Library.
+ */
+class ObservableViewModel extends ViewModel implements Observable {
+    private PropertyChangeRegistry callbacks = new PropertyChangeRegistry();
+
+    @Override
+    protected void addOnPropertyChangedCallback(
+            Observable.OnPropertyChangedCallback callback) {
+        callbacks.add(callback);
+    }
+
+    @Override
+    protected void removeOnPropertyChangedCallback(
+            Observable.OnPropertyChangedCallback callback) {
+        callbacks.remove(callback);
+    }
+
+    /**
+     * Notifies observers that all properties of this instance have changed.
+     */
+    void notifyChange() {
+        callbacks.notifyCallbacks(this, 0, null);
+    }
+
+    /**
+     * Notifies observers that a specific property has changed. The getter for the
+     * property that changes should be marked with the @Bindable annotation to
+     * generate a field in the BR class to be used as the fieldId parameter.
+     *
+     * @param fieldId The generated BR id for the Bindable field.
+     */
+    void notifyPropertyChanged(int fieldId) {
+        callbacks.notifyCallbacks(this, fieldId, null);
+    }
+}
+</code></pre>
           
         
       
