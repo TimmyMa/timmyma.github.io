@@ -353,7 +353,7 @@
                 
               
 
-              <time title="创建时间：2018-07-09 15:18:00 / 修改时间：16:50:13" itemprop="dateCreated datePublished" datetime="2018-07-09T15:18:00+08:00">2018-07-09</time>
+              <time title="创建时间：2018-07-09 15:18:00 / 修改时间：17:22:09" itemprop="dateCreated datePublished" datetime="2018-07-09T15:18:00+08:00">2018-07-09</time>
             
 
             
@@ -446,7 +446,7 @@
 </code></pre><blockquote>
 <p>表达式应该尽可能的简洁，因为他们不能被单元测试。如果想要简化复杂的表达式，可以使用 Binding adapters。  </p>
 </blockquote>
-<h3 id="Data-object"><a href="#Data-object" class="headerlink" title="Data object"></a>Data object</h3><p>先来假设有一个普通的 Java 对象 – <code>User</code> ：</p>
+<h2 id="Data-object"><a href="#Data-object" class="headerlink" title="Data object"></a>Data object</h2><p>先来假设有一个普通的 Java 对象 – <code>User</code> ：</p>
 <pre><code>public class User {
     public final String firstName;
     public final String lastName;
@@ -791,7 +791,7 @@ int age = user.age.get();
 </code></pre><blockquote>
 <p>Android Studio 3.1 及更高版本会建议你用 LiveData 来替换 observable 字段，详见 LiveData 文档</p>
 </blockquote>
-<h2 id="Observable-collections"><a href="#Observable-collections" class="headerlink" title="Observable collections"></a>Observable collections</h2><p>有些 app 使用动态的结构来保存数据。<code>Observable collections</code> 允许通过 key <code>来访问这些数据结构。ObservableArrayMap</code> 类在 key 是引用类型的时候就很有帮助，例如 <code>String</code> ，示例如下：  </p>
+<h3 id="Observable-collections"><a href="#Observable-collections" class="headerlink" title="Observable collections"></a>Observable collections</h3><p>有些 app 使用动态的结构来保存数据。<code>Observable collections</code> 允许通过 key <code>来访问这些数据结构。ObservableArrayMap</code> 类在 key 是引用类型的时候就很有帮助，例如 <code>String</code> ，示例如下：  </p>
 <pre><code>ObservableArrayMap&lt;String, Object&gt; user = new ObservableArrayMap&lt;&gt;();
 user.put(&quot;firstName&quot;, &quot;Google&quot;);
 user.put(&quot;lastName&quot;, &quot;Inc.&quot;);
@@ -855,7 +855,7 @@ user.add(17);
         notifyPropertyChanged(BR.lastName);
     }
 }
-</code></pre><p>数据绑定在对应的 module 中生成一个叫做 <code>BR</code> 的类（类似于 <code>R</code> ），其中包含了数据绑定的资源的 ID <code>。Bindable</code> 注解在编译时在 <code>BR</code> 类中生成一个实体类。如果数据类的类型是不可变的，则可以使用 <code>PropertyChangeRegistry</code> 对象实现 <code>Observable</code> 接口，以高效的注册和通知监听器。</p>
+</code></pre><p>数据绑定在对应的 module 中生成一个叫做 <code>BR</code> 的类（类似于 <code>R</code> ），其中包含了数据绑定的资源的 ID <code>。Bindable</code> 注解在编译时在 <code>BR</code> 类中生成一个实体类。如果数据类的类型是不可变的，则可以使用 <code>PropertyChangeRegistry</code> 对象实现 <code>Observable</code> 接口，以高效的注册和通知监听器。  </p>
 <h1 id="Generated-binding-classes"><a href="#Generated-binding-classes" class="headerlink" title="Generated binding classes"></a>Generated binding classes</h1><p>数据绑定库默认会生成类来访问 layout 里面的变量和视图。下面会展示如何创建和自定义绑定类。<br>生成的绑定类将 layout 中的变量和视图联系了起来。绑定类的包名和类名都可以自定义。所有的绑定类都继承于 <code>ViewDataBinding</code> 类。<br>每一个 layout 文件都会生成一个对应的绑定类。默认情况下，类名基于 layout 文件的名称进行驼峰命名并追加 <code>Binding</code> 后缀。上文的 layout 文件名为 <code>activity_main.xml</code> ，生成的类名即为 <code>ActivityMainBinding</code> 。这个类持有着所有的布局中视图信息，可以根据绑定的表达式给视图设置属性。  </p>
 <h2 id="Create-a-binding-object"><a href="#Create-a-binding-object" class="headerlink" title="Create a binding object"></a>Create a binding object</h2><p>绑定类对象紧接着在填充布局之后被创建，以确保视图在绑定之前不会被修改。将绑定类对象绑定到 layout 最常用的方法就是使用绑定类的静态方法。你可以通过调用绑定类的静态方法 <code>inflate()</code> 来同时完成填充布局和视图绑定。示例如下：  </p>
 <pre><code>@Override
