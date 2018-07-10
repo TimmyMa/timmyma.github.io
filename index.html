@@ -307,6 +307,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.mlaboratory.tech/2018/07/11/Android-JetPack-LiveData/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="T.M. Ma">
+      <meta itemprop="description" content="just some notes">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17079743?v=3&s=466">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Timmy Ma">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/11/Android-JetPack-LiveData/" itemprop="url">
+                  Android JetPack - LiveData
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-11 17:08:36" itemprop="dateCreated datePublished" datetime="2018-07-11T17:08:36+08:00">2018-07-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-07-10 19:01:38" itemprop="dateModified" datetime="2018-07-10T19:01:38+08:00">2018-07-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android-JetPack/" itemprop="url" rel="index"><span itemprop="name">Android JetPack</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="LiveData-overview"><a href="#LiveData-overview" class="headerlink" title="LiveData overview"></a>LiveData overview</h1><p><code>LiveData</code> 是一个 observable 数据的持有类。与通常的 observable 不同的是， <code>LiveData</code> 具有生命周期意识，意思就是它遵循其他应用组件的生命周期，例如 activity ， fragment ， service 。这就可以确保 LiveData 仅在应用组件处于活跃状态的时候更新 observer 。  </p>
+<p>LiveData 可以被认作是观察者，并且仅在它的生命周期处于 STARTED 或者 RESUMED 的时候活跃。 LiveData 仅通知活跃的观察者。已注册但是处于非活跃状态的观察者不会收到通知。  </p>
+<p>你可以注册与实现了 LifecycleOwner 接口的对象相匹配的观察者。这种关系允许在相应的 Lifecycle 对象更改为 DESTROYED 的时候移出观察者。这对于 Activity 和 Fragment 特别有用，因为他们可以安全的观察 LiveData 对象而不用担心内存泄漏 - 因为 Acticity 和 Fragment 在其生命周期被销毁的时候会取消订阅。   </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/11/Android-JetPack-LiveData/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.mlaboratory.tech/2018/07/10/Android_JetPack-Lifecycles/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -416,170 +592,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/10/Android_JetPack-Lifecycles/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.mlaboratory.tech/2018/07/10/Android-JetPack-LiveData/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="T.M. Ma">
-      <meta itemprop="description" content="just some notes">
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/17079743?v=3&s=466">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Timmy Ma">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/10/Android-JetPack-LiveData/" itemprop="url">
-                  Android JetPack - LiveData
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-07-10 17:08:36 / 修改时间：18:59:18" itemprop="dateCreated datePublished" datetime="2018-07-10T17:08:36+08:00">2018-07-10</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Android-JetPack/" itemprop="url" rel="index"><span itemprop="name">Android JetPack</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="LiveData-overview"><a href="#LiveData-overview" class="headerlink" title="LiveData overview"></a>LiveData overview</h1><p><code>LiveData</code> 是一个 observable 数据的持有类。与通常的 observable 不同的是， <code>LiveData</code> 具有生命周期意识，意思就是它遵循其他应用组件的生命周期，例如 activity ， fragment ， service 。这就可以确保 LiveData 仅在应用组件处于活跃状态的时候更新 observer 。  </p>
-<p>LiveData 可以被认作是观察者，并且仅在它的生命周期处于 STARTED 或者 RESUMED 的时候活跃。 LiveData 仅通知活跃的观察者。已注册但是处于非活跃状态的观察者不会收到通知。  </p>
-<p>你可以注册与实现了 LifecycleOwner 接口的对象相匹配的观察者。这种关系允许在相应的 Lifecycle 对象更改为 DESTROYED 的时候移出观察者。这对于 Activity 和 Fragment 特别有用，因为他们可以安全的观察 LiveData 对象而不用担心内存泄漏 - 因为 Acticity 和 Fragment 在其生命周期被销毁的时候会取消订阅。   </p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/10/Android-JetPack-LiveData/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
