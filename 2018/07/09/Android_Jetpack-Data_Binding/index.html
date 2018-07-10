@@ -115,7 +115,7 @@
 <meta property="og:url" content="http://www.mlaboratory.tech/2018/07/09/Android_Jetpack-Data_Binding/index.html">
 <meta property="og:site_name" content="Timmy Ma">
 <meta property="og:description" content="以声明的方式将 observable 数据绑定到 UI 元素参考 https://developer.android.com/topic/libraries/data-binding/ Get started添加 dataBinding 元素到项目中 app moudule 的 build.gradle 文件中：123456android &amp;#123;    ...    dataBinding">
-<meta property="og:updated_time" content="2018-07-09T10:28:55.356Z">
+<meta property="og:updated_time" content="2018-07-10T10:59:03.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Jetpack - Data Binding">
 <meta name="twitter:description" content="以声明的方式将 observable 数据绑定到 UI 元素参考 https://developer.android.com/topic/libraries/data-binding/ Get started添加 dataBinding 元素到项目中 app moudule 的 build.gradle 文件中：123456android &amp;#123;    ...    dataBinding">
@@ -350,12 +350,24 @@
                 
               
 
-              <time title="创建时间：2018-07-09 15:18:00 / 修改时间：18:28:55" itemprop="dateCreated datePublished" datetime="2018-07-09T15:18:00+08:00">2018-07-09</time>
+              <time title="创建时间：2018-07-09 15:18:00" itemprop="dateCreated datePublished" datetime="2018-07-09T15:18:00+08:00">2018-07-09</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-07-10 18:59:03" itemprop="dateModified" datetime="2018-07-10T18:59:03+08:00">2018-07-10</time>
               
             
           </span>
@@ -414,6 +426,7 @@
 <blockquote>
 <p>表达式应该尽可能的简洁，因为他们不能被单元测试。如果想要简化复杂的表达式，可以使用 Binding adapters。  </p>
 </blockquote>
+<a id="more"></a>
 <h2 id="Data-object"><a href="#Data-object" class="headerlink" title="Data object"></a>Data object</h2><p>先来假设有一个普通的 Java 对象 – <code>User</code> ：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String firstName;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String lastName;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String firstName, String lastName)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.firstName = firstName;</div><div class="line">        <span class="keyword">this</span>.lastName = lastName;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>下面这种对象的数据永远不会变，这些数据通常都会被读取一次之后也不会被更改，对象也可以遵循公约定义一些 get 方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String firstName;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String lastName;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String firstName, String lastName)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.firstName = firstName;</div><div class="line">        <span class="keyword">this</span>.lastName = lastName;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFirstName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.firstName;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getLastName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.lastName;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>从数据绑定的角度来看，上面这两种类的写法是等价的，第一种写法的情况下，<code>android:text</code> 中的 <code>@{user.firstName}</code> 表达式会直接读取该类的 <code>firstName</code> 属性，第二种写法则是直接调用 <code>getFirstName()</code> 方法。另外，如果有 <code>firstName()</code> 方法也会被调用。  </p>
@@ -665,8 +678,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/10/Android_JetPack-Lifecycles/" rel="prev" title="Android JetPack - Lifecycles">
-                Android JetPack - Lifecycles <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/10/Android-JetPack-LiveData/" rel="prev" title="Android JetPack - LiveData">
+                Android JetPack - LiveData <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -745,7 +758,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -781,7 +794,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
