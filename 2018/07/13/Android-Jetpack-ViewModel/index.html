@@ -118,7 +118,7 @@
 <meta property="og:image" content="https://developer.android.com/images/topic/libraries/architecture/viewmodel-lifecycle.png">
 <meta property="og:image" content="https://developer.android.com/images/topic/libraries/architecture/viewmodel-loader.png">
 <meta property="og:image" content="https://developer.android.com/images/topic/libraries/architecture/viewmodel-replace-loader.png">
-<meta property="og:updated_time" content="2018-07-17T08:00:12.687Z">
+<meta property="og:updated_time" content="2018-07-17T08:00:39.467Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Jetpack - ViewModel">
 <meta name="twitter:description" content="ViewModel OverviewViewModel 类旨在以生命周期意识的方式存储和管理 UI 相关数据。 ViewModel 类允许数据在配置更改之后（例如屏幕旋转）后继续存在。   Android 框架管理着 UI controller 的生命周期，例如 Activity 和 Fragment ，框架可以决定创建或是重新创建 UI controller 以响应不受您控制的某些用户操作或设备">
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-07-17 16:00:12" itemprop="dateModified" datetime="2018-07-17T16:00:12+08:00">2018-07-17</time>
+                <time title="修改时间：2018-07-17 16:00:39" itemprop="dateModified" datetime="2018-07-17T16:00:39+08:00">2018-07-17</time>
               
             
           </span>
@@ -454,9 +454,9 @@
 <p><img src="https://developer.android.com/images/topic/libraries/architecture/viewmodel-loader.png" alt=""></p>
 <p><code>ViewModel</code> 使用 <code>Room</code> 和 <code>LiveData</code> 一起可以来替换加载器。 <code>ViewModel</code> 可以确保哦数据在配置变更的时候仍然存在。当数据库发生变化时，会通知您的 <code>LiveData</code> ，然后 <code>LiveData</code> 会使用更改后的数据来更新你的 UI 。  </p>
 <p><img src="https://developer.android.com/images/topic/libraries/architecture/viewmodel-replace-loader.png" alt=""></p>
-<h1 id="Additional-resources"><a href="#Additional-resources" class="headerlink" title="Additional resources"></a>Additional resources</h1><p><a href="https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4" target="_blank" rel="external">这篇文章</a>描述了怎么使用 <code>ViewModel</code> 和 <code>LiveData</code> 来替换 <code>AsyncTaskLoader</code> 。  </p>
+<h1 id="Additional-resources"><a href="#Additional-resources" class="headerlink" title="Additional resources"></a>Additional resources</h1><p><a href="https://medium.com/google-developers/lifecycle-aware-data-loading-with-android-architecture-components-f95484159de4" target="_blank" rel="external">这篇文章</a> 描述了怎么使用 <code>ViewModel</code> 和 <code>LiveData</code> 来替换 <code>AsyncTaskLoader</code> 。  </p>
 <p>随着你的数据慢慢变得更加复杂，你也许会使用单独的类来来加载数据。使用 <code>ViewModel</code> 的目的是封装 UI controller 的数据，以便可以是数据不受配置更改的影响。有关如何跨配置更改加载，保留和管理数据的信息，请参考 <a href="https://developer.android.com/topic/libraries/architecture/saving-states.html" target="_blank" rel="external">Saving UI States</a>  </p>
-<p><a href="https://developer.android.com/topic/libraries/architecture/guide.html#fetching_data" target="_blank" rel="external">Guide to Android App Architecture</a>建议构建一个 Repository 类来管理这些功能。</p>
+<p><a href="https://developer.android.com/topic/libraries/architecture/guide.html#fetching_data" target="_blank" rel="external">Guide to Android App Architecture</a> 建议构建一个 Repository 类来管理这些功能。</p>
 
       
     </div>
