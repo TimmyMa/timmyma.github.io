@@ -111,16 +111,16 @@
   <meta name="description" content="ViewModel OverviewViewModel 类旨在以生命周期意识的方式存储和管理 UI 相关数据。 ViewModel 类允许数据在配置更改之后（例如屏幕旋转）后继续存在。   Android 框架管理着 UI controller 的生命周期，例如 Activity 和 Fragment ，框架可以决定创建或是重新创建 UI controller 以响应不受您控制的某些用户操作或设备">
 <meta name="keywords" content="ViewModel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android_Jetpack-ViewModel">
+<meta property="og:title" content="Android Jetpack - ViewModel">
 <meta property="og:url" content="http://www.mlaboratory.tech/2018/07/13/Android-Jetpack-ViewModel/index.html">
 <meta property="og:site_name" content="Timmy Ma">
 <meta property="og:description" content="ViewModel OverviewViewModel 类旨在以生命周期意识的方式存储和管理 UI 相关数据。 ViewModel 类允许数据在配置更改之后（例如屏幕旋转）后继续存在。   Android 框架管理着 UI controller 的生命周期，例如 Activity 和 Fragment ，框架可以决定创建或是重新创建 UI controller 以响应不受您控制的某些用户操作或设备">
 <meta property="og:image" content="https://developer.android.com/images/topic/libraries/architecture/viewmodel-lifecycle.png">
 <meta property="og:image" content="https://developer.android.com/images/topic/libraries/architecture/viewmodel-loader.png">
 <meta property="og:image" content="https://developer.android.com/images/topic/libraries/architecture/viewmodel-replace-loader.png">
-<meta property="og:updated_time" content="2018-07-17T07:56:34.263Z">
+<meta property="og:updated_time" content="2018-07-17T08:00:12.687Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android_Jetpack-ViewModel">
+<meta name="twitter:title" content="Android Jetpack - ViewModel">
 <meta name="twitter:description" content="ViewModel OverviewViewModel 类旨在以生命周期意识的方式存储和管理 UI 相关数据。 ViewModel 类允许数据在配置更改之后（例如屏幕旋转）后继续存在。   Android 框架管理着 UI controller 的生命周期，例如 Activity 和 Fragment ，框架可以决定创建或是重新创建 UI controller 以响应不受您控制的某些用户操作或设备">
 <meta name="twitter:image" content="https://developer.android.com/images/topic/libraries/architecture/viewmodel-lifecycle.png">
 
@@ -139,7 +139,7 @@
   };
 </script>
 
-  <title>Android_Jetpack-ViewModel | Timmy Ma</title>
+  <title>Android Jetpack - ViewModel | Timmy Ma</title>
   
 
 
@@ -329,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Android_Jetpack-ViewModel
+          <h1 class="post-title" itemprop="name headline">Android Jetpack - ViewModel
               
             
           </h1>
@@ -371,7 +371,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-07-17 15:56:34" itemprop="dateModified" datetime="2018-07-17T15:56:34+08:00">2018-07-17</time>
+                <time title="修改时间：2018-07-17 16:00:12" itemprop="dateModified" datetime="2018-07-17T16:00:12+08:00">2018-07-17</time>
               
             
           </span>
@@ -428,6 +428,7 @@
 <p>另一个问题就是 UI controller 要频繁的进行异步请求，需要时间来等待返回结果。 UI controller 需要管理这些调用，并在系统清理现场的时候避免潜在的内存泄漏。这种管理工作需要维护大量代码，并且在这种情况下数据对象会被重新创建，对于已经调用并创建的对象来说重建他们是一种资源浪费。  </p>
 <p>诸如 Activity 和 Fragment 这样的 UI controller 主要用于显示 UI 数据，对应互操作进行响应或是处理跟操作系统的交互，例如申请权限。用 UI controller 来负责请求数据库，会让类越来越臃肿。为 UI controller 分配过多的任务可能会导致最后一个类处理了所有的工作，而不是委托给其它类。这样也会更加难以测试代码。  </p>
 <p>将视图数据与 UI controller 分离开会更简单、更有效。  </p>
+<a id="more"></a>
 <h1 id="Implement-a-ViewModel"><a href="#Implement-a-ViewModel" class="headerlink" title="Implement a ViewModel"></a>Implement a ViewModel</h1><p>应用架构组件提供 <code>ViewModel</code> 辅助类来帮助 UI controller 准备数据。 <code>ViewModel</code> 对象在配置更改期间自动保留，以便它们保存的数据可以立即被下一个 Activity 或 Fragment 使用。例如，你想要在应用中显示用户列表，请确保分配好指责，将用户列表分配给 ViewModel 对象，而不是 Activity 或 Fragment ，示例如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyViewModel</span> <span class="keyword">extends</span> <span class="title">ViewModel</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> MutableLiveData&lt;List&lt;User&gt;&gt; users;</div><div class="line">    <span class="keyword">public</span> LiveData&lt;List&lt;User&gt;&gt; getUsers() &#123;</div><div class="line">        <span class="keyword">if</span> (users == <span class="keyword">null</span>) &#123;</div><div class="line">            users = <span class="keyword">new</span> MutableLiveData&lt;List&lt;User&gt;&gt;();</div><div class="line">            loadUsers();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> users;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">loadUsers</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// Do an asynchronous operation to fetch users.</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>在 Actitivty 中可以像这样访问数据：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="comment">// Create a ViewModel the first time the system calls an activity's onCreate() method.</span></div><div class="line">        <span class="comment">// Re-created activities receive the same MyViewModel instance created by the first activity.</span></div><div class="line"></div><div class="line">        MyViewModel model = ViewModelProviders.of(<span class="keyword">this</span>).get(MyViewModel.class);</div><div class="line">        model.getUsers().observe(<span class="keyword">this</span>, users -&gt; &#123;</div><div class="line">            <span class="comment">// update UI</span></div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>当重建 Activity 的时候，他将接受与第一个 Activity 相同的 <code>MyViewModel</code> 实例。当 Activity 结束的时候，框架将会调用  <code>ViewModel</code> 对象的 <code>onCleared()</code> 方法，以便清理资源。  </p>
